@@ -1,6 +1,7 @@
 
 ![Screenshot 2023-02-09 at 3 40 48 pm](https://user-images.githubusercontent.com/116997107/217727808-426d737c-3b0a-4d5d-b187-f92788f8afeb.png)
-### Hi I'm Inano
+### Hi Nano 
+is how you pronounce my birth name
 
 I like to think that I am creative and funny. If you liked that 1 minute mashup above ~ You should see my coding projects :innocent:
 
