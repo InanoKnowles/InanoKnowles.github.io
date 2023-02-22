@@ -13,6 +13,7 @@ These will be the projects that will be showcased
 - COMMAND BOARD TODO LIST
 - SPRITE KNIGHT
 - GIPHMAN
+
 (links are on their way...they just got stuck on a callback)
 
 - 🔭 I’m currently working on
