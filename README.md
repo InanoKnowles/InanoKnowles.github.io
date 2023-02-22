@@ -5,6 +5,9 @@ is how you pronounce my birth name
 
 I like to think that I am creative and funny. If you liked that 1 minute mashup above ~ You should see my coding projects :innocent:
 
+~ My Portfolio website is in the works ~
+These will be the projects that will be showcased
+
 ✨ _Projects_ ✨
 - TIC TAC TOE
 - COMMAND BOARD TODO LIST
