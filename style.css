@@ -1,0 +1,120 @@
+body {
+  max-width: 1000px;
+  margin: auto;
+  font-family: 'Lato', sans-serif;
+}
+
+.navigationArea {
+  display: flex;
+  background-color: #344c70;
+  width:1000px;
+  height: 55px;
+}
+
+
+#navbar {
+  overflow: hidden;
+  background-color: #344c70;
+}
+
+/* Navbar links */
+#navbar a {
+  font-family: 'Lato', sans-serif;
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+/* Page content */
+.content {
+  padding: 16px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  max-width: 1000px;
+  background-color: #667cd9;
+  width:1000px;
+  height: 55px;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+}
+.bannerArea img {
+  max-width: 1000px;
+  max-height: 550px;
+  align-self: center;
+}
+.bannerArea {
+  display: flex;
+  /* background-color: orange; */
+  /* width: 1000px;
+  height: 1000px; */
+  /* border: 2px solid purple; */
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-content: center;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.contentArea {
+  display: flex;
+  width: 1000px;
+  height: 360px;
+  /* border: 2px solid purple; */
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+h1 {
+  color: #344c70;
+}
+
+.project {
+  display: flex;
+  border-radius: 25px;
+  background-color: #d9e3f4;
+  margin-right: 10px;
+  width: 450px;
+  height: 200px;
+  margin: 20px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 10px 5px 5px rgb(82, 98, 154);
+  
+
+}
+
+.project p {
+  text-align: center;
+  padding: 1px;
+  margin: 3px;
+}
+
+.projectBox {
+  display: flex;
+}
+
+.footerArea {
+  background-color: #344c70;
+  width:1000px;
+  height: 30px;
+  text-align: center;
+  color: #f2f2f2;
+  margin: 2px;
+  /* border: 2px solid green; */
+}
