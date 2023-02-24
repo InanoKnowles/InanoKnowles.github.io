@@ -1,4 +1,5 @@
 body {
+  /* background-color: red; */
   max-width: 1000px;
   margin: auto;
   font-family: 'Lato', sans-serif;
@@ -8,7 +9,7 @@ body {
   display: flex;
   background-color: #344c70;
   width:1000px;
-  height: 55px;
+  height: 50px;
 }
 
 
@@ -30,7 +31,7 @@ body {
 
 /* Page content */
 .content {
-  padding: 16px;
+  padding: 10px;
 }
 
 /* The sticky class is added to the navbar with JS when it reaches its scroll position */
@@ -40,7 +41,7 @@ body {
   max-width: 1000px;
   background-color: #667cd9;
   width:1000px;
-  height: 55px;
+  height: 50px;
 }
 
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
@@ -49,15 +50,11 @@ body {
 }
 .bannerArea img {
   max-width: 1000px;
-  max-height: 550px;
+  max-height: 500px;
   align-self: center;
 }
 .bannerArea {
   display: flex;
-  /* background-color: orange; */
-  /* width: 1000px;
-  height: 1000px; */
-  /* border: 2px solid purple; */
   flex-wrap: nowrap;
   flex-direction: column;
   align-content: center;
@@ -65,11 +62,15 @@ body {
   align-items: center;
 }
 
+.contentArea img {
+  max-width: 500px;
+  max-height: 100px;
+}
+
 .contentArea {
   display: flex;
   width: 1000px;
-  height: 360px;
-  /* border: 2px solid purple; */
+  height: 460px;
   flex-wrap: nowrap;
   flex-direction: column;
   align-content: center;
@@ -81,22 +82,24 @@ h1 {
   color: #344c70;
 }
 
+h2 {
+  color: #344c70;
+}
+
 .project {
   display: flex;
   border-radius: 25px;
   background-color: #d9e3f4;
   margin-right: 10px;
-  width: 450px;
-  height: 200px;
+  width: 470px;
+  height: 300px;
   margin: 20px;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-content: center;
   justify-content: center;
   align-items: center;
-  box-shadow: 10px 5px 5px rgb(82, 98, 154);
-  
-
+  box-shadow: 10px 5px 5px rgb(82 98 154);
 }
 
 .project p {
@@ -118,3 +121,12 @@ h1 {
   margin: 2px;
   /* border: 2px solid green; */
 }
+
+.canvas {
+  background-color: #f0f5ff;
+  max-width: 1000px;
+}
+/* 
+ */
+
+ 
