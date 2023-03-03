@@ -1,48 +1,52 @@
-![Screenshot 2023-02-09 at 3 40 48 pm](https://user-images.githubusercontent.com/116997107/217727808-426d737c-3b0a-4d5d-b187-f92788f8afeb.png)
+# Inano Knowles
 
-### Hi Nano
+### Software Engineer based in Brisbane Australia
+:wave: Hello, Thanks for dropping by my Github page.
+Whilst you're here feel free to check out [my website](https://inanoknowles.github.io/) that I made using HTML, JavaScript and CSS. If you wanted to catch up in person or online feel free to contact me on [LinkedIn](https://https://www.linkedin.com/in/inanoknowles/).
 
-is how you pronounce my birth name
+### About Me
+I like to think that I am a quirky and creative person who loves manga, anime, kpop and video games. I love solving problems and for the longest time I thought that I was solving problems through helping people achieve their health and fitness goals. However, my ability to help people in this space was limited to what sales I could make, the amount people I could convert and if each individual stuck to their personalised programs. Though I loved seeing the positive changes in my clients a part of me felt unsatisfied - As if I wasn't being challenged enough.
 
-I like to think that I am creative and funny. If you liked that 1 minute mashup above ~ You should see my coding projects :innocent:
+After getting a taste of what kinds of problems could be solved through the use of technology. I realised I could help so many people even if it is just to make doing their daily tasks and collaboration easier. I want to work on projects that can help teams solve problems whilst they work on their own projects.
 
-~ My Portfolio website is in the works ~
-These will be the projects that will be showcased
+Once I started to learn more about programming I discovered how much fun I had. The enjoyment of learning and the thrill of getting stuck and the satisfaction of getting unstuck. Finally I have found a career path that satisfies my mind and gets me out of bed full of excitement - The perfect challenge! Especially since not every case is the same and I'd need to keep constantly learning.
 
-✨ _Projects_ ✨
+As soon as I understood what I was looking for in a career. On a friend's recommendation - I signed up to General Assembly's Software Engineering Immersive Bootcamp. It was tough and I struggled but at the end I successfully passed and recieved a certificate of completion. :tada: 
 
-- TIC TAC TOE
-- GIPHMAN
+During my time attending the bootcamp I got to work on some ~
 
-(links are on their way...they just got stuck on a callback)
+## :computer: Fun Projects:
+- [TIC TAC TOE](https://inanoknowles.github.io/Tic_Tac_Toe/)
+- TO DO LIST
+- SPRITE KNIGHT (Team project)
+- [GIPHMAN](https://inanos-giphman.surge.sh/)
 
-- 🔭 I’m currently working on
-  My portfolio
+And I even got to learn how to use some ~
 
-- 🌱 I’m currently learning
-  HTML
-  CSS
-  JAVASCRIPT
-  DOM
-  RUBY
-  RUBY ON RAILS
-  SINATRA
-  PROTESGREL
-  REACT JS
-  NODE JS
-  ASESPRITE
+## :rocket: Cool Tech:
+- HTML
+- CSS
+- JAVASCRIPT
+- RUBY
+- DOCUMENT OBJECT MODEL
+- TEST DRIVEN DEVELOPMENT IN JEST
+- NODE JS
+- REACT JS
+- SINATRA
+- POSTGRESQL
+- GIT
 
-- 👯 I’m looking to collaborate on
-  Developing my skills are you a mentor?
+I loved the lessons based on Object-Oriented Programming and Data Structures these are the topics I am very keen to expand my knowledge on. Since graduating I started job hunting, practicing everything I learnt in the course and I am ~
 
-- 🤔 I’m looking for help with ...
-  The basics of becoming a software engineer - My journey is a long one and there is much to do, join me!
+## :books: Currently Learning:
+- JAVA
+- PYTHON
+- C++
+- TYPESCRIPT
+- REACT
 
-- 📫 How to reach me:
-  You can find me on LinkedIn
+## :pushpin: Learn More or Contact Me:
 
-- 😄 Pronouns:
-  SHE / HER
+[My Website](https://inanoknowles.github.io/)
 
-- ⚡ Fun fact:
-  I was part of the generation that used BEBO when it was a social media platform.
+[LinkedIn](https://https://www.linkedin.com/in/inanoknowles/)
