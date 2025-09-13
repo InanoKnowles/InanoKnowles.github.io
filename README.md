@@ -1,6 +1,6 @@
-#  your_name_here - Portfolio Task
+#  Inano Knowles - Portfolio Task
 ​
-[My portfolio site](link_to_your_site)
+[My portfolio site](https://inanoknowles.github.io/)
 ​
 ## Project Requirements
 
