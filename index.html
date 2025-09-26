@@ -1,24 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Falling Code Animation  -->
-  <canvas id="matrixBackground"></canvas>
+  <!-- Falling code background -->
+  <canvas id="matrix"></canvas>
 
-  <div class="container">
-    <h1 id="typing"></h1>
-    <p class="role">Front-End</p>
-    <div class="buttons">
-      <button onclick="alert('Contact form coming soon!')">Contact Me</button>
-      <a href="img/profile_1.png" download>Download CV</a>
+  <!-- Page content -->
+  <header class="site-header">
+    <button id="themeToggle" aria-label="Toggle theme">☀︎ / ☾</button>
+  </header>
+
+  <main class="hero">
+    <div class="hero__text">
+      <h1><span id="typing"></span> <span class="accent">Front-End</span></h1>
+      <div class="cta">
+        <a class="btn" href="#contact">Contact me</a>
+        <a class="btn btn--outline" href="README.md" download>Download CV</a>
+      </div>
     </div>
-  </div>
+
+    <div class="hero__image">
+      <img id="heroImg" src="img/darkmode.png" alt="Developer at laptop" width="640" height="640" />
+    </div>
+  </main>
 
   <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+
+
+<nav id="siteNav" class="nav" aria-label="Primary">
+<ul>
+<li><a href="index.html" data-nav>Home</a></li>
+<li><a href="projects.html" data-nav>Projects</a></li>
+<li><a href="#contact" data-nav>Contact</a></li>
+</ul>
+</nav>
+
+
+<button id="themeToggle" class="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle theme"></button>
+</header>
+
+
+<main id="main">
+<!-- Hero with banner image and overlayed text -->
+<section class="hero" aria-label="Intro">
+<img id="heroImg" class="hero__bg" src="img/darkmode.png" alt="" role="presentation" />
+<div class="hero__overlay">
+<h1 class="typing"><span id="typing"></span> <span class="accent">Front‑End</span></h1>
+<p class="tagline">Building fast, accessible interfaces with care.</p>
+<div class="cta">
+<a class="btn" href="#contact">Contact me</a>
+<a class="btn btn--outline" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+</div>
+</div>
+</section>
+
+
+<!-- About with profile picture and 100+ word bio -->
+<section class="about" id="about" aria-labelledby="about-title">
+<div class="wrap">
+<div class="about__media">
+<img src="img/profile_1.png" alt="Portrait of My Queen" class="profile" width="320" height="320" />
+</div>
+<div class="about__content">
+<h2 id="about-title">About me</h2>
+<p>
+I am an Information Technology student who enjoys solving real problems with clean, front end code. My approach is grounded in accessibility, performance and thoughtful design. I prefer to ship iteratively, test carefully and keep my codebase simple enough for the next person to read. During my studies I have completed projects that use HTML, CSS and JavaScript, along with modern tools and workflows. I am comfortable collaborating through Git, reviewing pull requests and documenting my decisions so teams can maintain momentum. Outside of class I keep learning by building small utilities, reading documentation and contributing to open source issues. My goal is to grow into a responsible engineer who can deliver reliable features for real users.
+</p>
+</div>
+</div>
+</section>
+
+
+<!-- Projects preview -->
+<section class="projects" aria-labelledby="proj-title">
+<div class="wrap">
+<h2 id="proj-title">Featured projects</h2>
+<ul class="card-grid">
+<li class="card">
+<h3>Responsive Recipe Finder</h3>
+<p>Search, filter and save favourite recipes. Built with semantic HTML, CSS grid and vanilla JS.</p>
+<p class="card-links">
+<a class="link" href="#" target="_blank" rel="noopener">Live demo</a>
+<a class="link" href="#" target="_blank" rel="noopener">Source</a>
+</p>
+</li>
+<li class="card">
+<h3>Study Planner</h3>
+<p>Simple planner that tracks tasks and study sessions. Local storage, keyboard friendly interactions.</p>
+<p class="card-links">
+<a class="link" href="#" target="_blank" rel="noopener">Live demo</a>
+<a class="link" href="#" target="_blank" rel="noopener">Source</a>
+</p>
+</li>
+<li class="card">
+<h3>CSS Art Gallery</h3>
+<p>Small collection that explores transforms, animations and layout without images.</p>
+<p class="card-links">
+<a class="link" href="#" target="_blank" rel="noopener">Live demo</a>
+<a class="link" href="#" target="_blank" rel="noopener">Source</a>
+</p>
+</li>
+</ul>
+<p><a class="btn btn--ghost" href="projects.html">See all projects</a></p>
+</div>
+</section>
+
+
+<!-- Contact -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+<div class="wrap">
+<h2 id="contact-title">Contact</h2>
+<p>Preferred contact method: <a href="mailto:your.name@example.com">your.name@example.com</a></p>
+<ul class="social">
+<li><a href="https://github.com/yourhandle" target="_blank" rel="noopener">GitHub</a></li>
+<li><a href="https://www.linkedin.com/in/yourhandle/" target="_blank" rel="noopener">LinkedIn</a></li>
+</ul>
+</div>
+</section>
+</main>
+
+
+<footer class="site-footer">
+<div class="wrap">
+<small>© <span id="year"></span> My Queen. Built with semantic HTML, CSS and JavaScript.</small>
+</div>
+</footer>
+
+
+<script src="script.js"></script>
 </body>
 </html>
