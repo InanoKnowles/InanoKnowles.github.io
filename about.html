@@ -38,7 +38,7 @@
     <section class="hero about" role="img" aria-label="Illustrated portrait banner">
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <p class="lead">I am a Brisbane based Software Engineer studying at QUT. I have experience leading teams and delivering outcomes with care.</p>
+        
         <div class="name-title">
           <span class="name">Inano Knowles</span>
           <span class="title">Software Engineer</span>
@@ -51,10 +51,6 @@
     </section>
 
     <section class="aboutGrid">
-      <figure class="aboutCard">
-        <img class="avatar" src="img/my_selfie.png" alt="Portrait of Inano Knowles" />
-        <figcaption>Preferred contact: <a href="mailto:inanoktech@gmail.com">inanoktech@gmail.com</a></figcaption>
-      </figure>
       <article class="aboutText">
         <h2>Biography</h2>
         <p>Kia ora, I am Inano, a Brisbane based Software Engineer and lifelong learner. I am currently studying at QUT and building strong foundations in the web stack, with a focus on accessible, responsive interfaces. I enjoy transforming ideas into usable features and I care deeply about the quality of the experience for every person. I learn quickly, communicate clearly and love working with teams where kindness and curiosity are valued. My interests include front end architecture, CSS systems, testing and the craft of interaction design. Outside of study, I build small tools that automate everyday tasks and explore creative coding challenges to sharpen my skills. I am excited to keep growing as a developer and to contribute to projects that help people in practical ways.</p>
@@ -92,6 +88,10 @@
       <h2>Education</h2>
       <ul class="edu-list">
         <li>
+          <span class="edu-title">6 Month Bootcamp — She Codes Plus, Brisbane</span>
+          <span class="edu-meta">Sep 2025 – Expected Mar 2026</span>
+        </li>
+        <li>
           <span class="edu-title">Bachelor of Information Technology — Queensland University of Technology, Brisbane</span>
           <span class="edu-meta">Jul 2023 – Expected 2026</span>
         </li>
@@ -114,6 +114,46 @@
         <li class="chip">Cosy core games</li>
         <li class="chip">Creative coding</li>
       </ul>
+    </section>
+  
+    <section class="preferredCard" aria-labelledby="preferredHeading">
+      <h2 id="preferredHeading" class="visually-hidden">Preferred contact</h2>
+      <div class="pref-inner">
+        <img class="pref-avatar" src="img/my_selfie.png" alt="Portrait of Inano Knowles" />
+        <div class="pref-links">
+          <a class="btn glow" href="https://github.com/InanoKnowles" target="_blank" rel="noopener" aria-label="GitHub profile">GitHub</a>
+          <a class="btn outline" href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn profile">LinkedIn</a>
+          <a class="btn outline" href="mailto:inanoktech@gmail.com" aria-label="Send email to inanoktech@gmail.com">Gmail</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contactArea">
+      <h2>Contact form</h2>
+      <p>You can also send a message using the form below.</p>
+      <form id="contactForm" class="form-grid" aria-describedby="formStatus">
+        <div class="form-field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="form-field">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" />
+        </div>
+        <div class="form-field form-full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </div>
+        <div class="form-actions form-full">
+          <button class="btn glow" type="submit">Send Email</button>
+          <a class="btn outline" href="mailto:inanoktech@gmail.com">Email Directly</a>
+        </div>
+        <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+      </form>
     </section>
   </main>
 
