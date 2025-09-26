@@ -1,140 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portfolio</title>
+  <title>Inano Knowles</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <!-- Falling code background -->
-  <canvas id="matrix"></canvas>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Page content -->
-  <header class="site-header">
-    <button id="themeToggle" aria-label="Toggle theme">☀︎ / ☾</button>
+  <header class="navigationArea">
+    <nav id="navbar" aria-label="Primary">
+      <a href="index.html" class="brand" aria-label="Inano home">
+        <img id="logo" alt="Inano logo" width="128" height="36" data-light="img/lightmode_logo.png" data-dark="img/darkmode_logo.png" />
+      </a>
+
+      <button id="menuToggle" class="hamburger" type="button" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle menu">
+        <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+      </button>
+
+      <ul id="primaryNav" class="nav-list">
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="nav-actions">
+          <button id="themeToggle" class="btn outline small" type="button" aria-pressed="false" aria-label="Toggle dark and light mode">Dark Mode</button>
+        </li>
+      </ul>
+    </nav>
   </header>
 
-  <main class="hero">
-    <div class="hero__text">
-      <h1><span id="typing"></span> <span class="accent">Front-End</span></h1>
-      <div class="cta">
-        <a class="btn" href="#contact">Contact me</a>
-        <a class="btn btn--outline" href="README.md" download>Download CV</a>
+  <main id="main" class="canvas">
+    <section class="hero home" role="img" aria-label="Ocean moon illustration">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Inano Knowles</h1>
+        <p class="tagline">Software Engineer</p>
+        <div class="cta-group">
+          <a class="btn glow" href="about.html#contact">Contact Me</a>
+          <a class="btn outline" href="Resume2025.pdf" download="Inano_Knowles_Resume_2025.pdf">Résumé</a>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="hero__image">
-      <img id="heroImg" src="img/darkmode.png" alt="Developer at laptop" width="640" height="640" />
-    </div>
+    <section class="contentArea">
+      <h2>Projects</h2>
+      <p>Below are projects from my studies and personal learning.</p>
+
+      <div class="projectGrid grid-1-3-4">
+        <article class="project">
+          <h3>Tic Tac Toe</h3>
+          <img src="img/lightmode_homepage.png" alt="Tic Tac Toe screenshot" />
+          <p>A two-player game on one device using the mouse.</p>
+          <div class="cta-group">
+            <a class="btn glow" href="https://inanoknowles.github.io/Tic_Tac_Toe/" target="_blank" rel="noopener">Play Now</a>
+            <a class="btn outline" href="https://github.com/InanoKnowles/Tic_Tac_Toe" target="_blank" rel="noopener">Repository</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <h3>Giphman</h3>
+          <img src="img/lightmode_homepage.png" alt="Giphman screenshot" />
+          <p>Guess the secret word or phrase using visual hints.</p>
+          <div class="cta-group">
+            <a class="btn glow" href="https://inanos-giphman.surge.sh/" target="_blank" rel="noopener">Play Now</a>
+            <a class="btn outline" href="https://github.com/InanoKnowles/Project4" target="_blank" rel="noopener">Repository</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <h3>Project Three</h3>
+          <img src="img/lightmode_homepage.png" alt="Project three screenshot" />
+          <p>Front end performance exploration.</p>
+          <div class="cta-group">
+            <span class="btn glow" aria-disabled="true">Coming Soon</span>
+            <span class="btn outline" aria-disabled="true">Repository</span>
+          </div>
+        </article>
+
+        <article class="project">
+          <h3>Project Four</h3>
+          <img src="img/lightmode_homepage.png" alt="Project four screenshot" />
+          <p>Accessibility testing toolkit.</p>
+          <div class="cta-group">
+            <span class="btn glow" aria-disabled="true">Coming Soon</span>
+            <span class="btn outline" aria-disabled="true">Repository</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="preferredCard" aria-labelledby="preferredHeading">
+      <h2 id="preferredHeading" class="visually-hidden">Preferred contact</h2>
+      <div class="pref-inner">
+        <img class="pref-avatar" src="img/my_selfie.png" alt="Portrait of Inano Knowles" />
+        <div class="pref-links">
+          <a class="btn glow" href="https://github.com/InanoKnowles" target="_blank" rel="noopener" aria-label="GitHub profile">GitHub</a>
+          <a class="btn outline" href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn profile">LinkedIn</a>
+          <a class="btn outline" href="mailto:inanoktech@gmail.com" aria-label="Send email to inanoktech@gmail.com">Gmail</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contactArea">
+      <h2>Contact form</h2>
+      <p>You can also send a message using the form below.</p>
+      <form id="contactForm" class="form-grid" aria-describedby="formStatus">
+        <div class="form-field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="form-field">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" />
+        </div>
+        <div class="form-field form-full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </div>
+        <div class="form-actions form-full">
+          <button class="btn glow" type="submit">Send Email</button>
+          <a class="btn outline" href="mailto:inanoktech@gmail.com">Email Directly</a>
+        </div>
+        <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
   </main>
 
-  <script src="script.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-
-
-<nav id="siteNav" class="nav" aria-label="Primary">
-<ul>
-<li><a href="index.html" data-nav>Home</a></li>
-<li><a href="projects.html" data-nav>Projects</a></li>
-<li><a href="#contact" data-nav>Contact</a></li>
-</ul>
-</nav>
-
-
-<button id="themeToggle" class="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle theme"></button>
-</header>
-
-
-<main id="main">
-<!-- Hero with banner image and overlayed text -->
-<section class="hero" aria-label="Intro">
-<img id="heroImg" class="hero__bg" src="img/darkmode.png" alt="" role="presentation" />
-<div class="hero__overlay">
-<h1 class="typing"><span id="typing"></span> <span class="accent">Front‑End</span></h1>
-<p class="tagline">Building fast, accessible interfaces with care.</p>
-<div class="cta">
-<a class="btn" href="#contact">Contact me</a>
-<a class="btn btn--outline" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
-</div>
-</div>
-</section>
-
-
-<!-- About with profile picture and 100+ word bio -->
-<section class="about" id="about" aria-labelledby="about-title">
-<div class="wrap">
-<div class="about__media">
-<img src="img/profile_1.png" alt="Portrait of My Queen" class="profile" width="320" height="320" />
-</div>
-<div class="about__content">
-<h2 id="about-title">About me</h2>
-<p>
-I am an Information Technology student who enjoys solving real problems with clean, front end code. My approach is grounded in accessibility, performance and thoughtful design. I prefer to ship iteratively, test carefully and keep my codebase simple enough for the next person to read. During my studies I have completed projects that use HTML, CSS and JavaScript, along with modern tools and workflows. I am comfortable collaborating through Git, reviewing pull requests and documenting my decisions so teams can maintain momentum. Outside of class I keep learning by building small utilities, reading documentation and contributing to open source issues. My goal is to grow into a responsible engineer who can deliver reliable features for real users.
-</p>
-</div>
-</div>
-</section>
-
-
-<!-- Projects preview -->
-<section class="projects" aria-labelledby="proj-title">
-<div class="wrap">
-<h2 id="proj-title">Featured projects</h2>
-<ul class="card-grid">
-<li class="card">
-<h3>Responsive Recipe Finder</h3>
-<p>Search, filter and save favourite recipes. Built with semantic HTML, CSS grid and vanilla JS.</p>
-<p class="card-links">
-<a class="link" href="#" target="_blank" rel="noopener">Live demo</a>
-<a class="link" href="#" target="_blank" rel="noopener">Source</a>
-</p>
-</li>
-<li class="card">
-<h3>Study Planner</h3>
-<p>Simple planner that tracks tasks and study sessions. Local storage, keyboard friendly interactions.</p>
-<p class="card-links">
-<a class="link" href="#" target="_blank" rel="noopener">Live demo</a>
-<a class="link" href="#" target="_blank" rel="noopener">Source</a>
-</p>
-</li>
-<li class="card">
-<h3>CSS Art Gallery</h3>
-<p>Small collection that explores transforms, animations and layout without images.</p>
-<p class="card-links">
-<a class="link" href="#" target="_blank" rel="noopener">Live demo</a>
-<a class="link" href="#" target="_blank" rel="noopener">Source</a>
-</p>
-</li>
-</ul>
-<p><a class="btn btn--ghost" href="projects.html">See all projects</a></p>
-</div>
-</section>
-
-
-<!-- Contact -->
-<section class="contact" id="contact" aria-labelledby="contact-title">
-<div class="wrap">
-<h2 id="contact-title">Contact</h2>
-<p>Preferred contact method: <a href="mailto:your.name@example.com">your.name@example.com</a></p>
-<ul class="social">
-<li><a href="https://github.com/yourhandle" target="_blank" rel="noopener">GitHub</a></li>
-<li><a href="https://www.linkedin.com/in/yourhandle/" target="_blank" rel="noopener">LinkedIn</a></li>
-</ul>
-</div>
-</section>
-</main>
-
-
-<footer class="site-footer">
-<div class="wrap">
-<small>© <span id="year"></span> My Queen. Built with semantic HTML, CSS and JavaScript.</small>
-</div>
-</footer>
-
-
-<script src="script.js"></script>
+  <footer class="footerArea">
+    <p>© 2025 Inano Knowles</p>
+    <p><a href="mailto:inanoktech@gmail.com">Email me</a> · <a href="https://github.com/InanoKnowles" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
 </body>
 </html>

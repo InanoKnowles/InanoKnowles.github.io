@@ -1,86 +1,91 @@
-/* Utilities */
-const typingText = 'Software Engineer';
-const typingSpeed = 90;
-if (typingTarget) {
-const type = (i = 0) => {
-if (i <= typingText.length) {
-typingTarget.textContent = typingText.slice(0, i);
-setTimeout(() => type(i + 1), typingSpeed);
-}
-};
-type();
-}
+const STORAGE_KEY = "theme";
 
+const getPreferredScheme = () =>
+  window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
-/* Theme toggle + hero image swap */
-const heroImg = document.getElementById('heroImg');
-const themeBtn = document.getElementById('themeToggle');
 function applyTheme(theme) {
-const isLight = theme === 'light';
-root.classList.toggle('light', isLight);
-if (heroImg) heroImg.src = isLight ? 'img/lightmode.png' : 'img/darkmode.png';
-localStorage.setItem('theme', theme);
-// update matrix colours
-setMatrixColours(getComputedStyle(root).getPropertyValue('--code').trim(),
-getComputedStyle(root).getPropertyValue('--fade').trim());
+  const html = document.documentElement;
+  html.setAttribute("data-theme", theme);
+  document.querySelectorAll("#themeToggle").forEach(toggle => {
+    const isDark = theme === "dark";
+    toggle.setAttribute("aria-pressed", String(isDark));
+    toggle.textContent = isDark ? "Light Mode" : "Dark Mode";
+  });
+  document.querySelectorAll("[data-light][data-dark]").forEach(img => {
+    const target = theme === "dark" ? img.getAttribute("data-dark") : img.getAttribute("data-light");
+    if (target && img.getAttribute("src") !== target) img.setAttribute("src", target);
+  });
 }
-function getInitialTheme() {
-const saved = localStorage.getItem('theme');
-if (saved) return saved;
-return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+
+function initTheme() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  const initial = saved === "light" || saved === "dark" ? saved : getPreferredScheme();
+  applyTheme(initial);
 }
-applyTheme(getInitialTheme());
-if (themeBtn) themeBtn.addEventListener('click', () => {
-const next = root.classList.contains('light') ? 'dark' : 'light';
-applyTheme(next);
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme") || getPreferredScheme();
+  const next = current === "dark" ? "light" : "dark";
+  localStorage.setItem(STORAGE_KEY, next);
+  applyTheme(next);
+}
+
+function initMenu() {
+  const toggles = document.querySelectorAll("#menuToggle");
+  const nav = document.getElementById("primaryNav");
+  if (!nav || toggles.length === 0) return;
+  const closeMenu = () => {
+    nav.classList.remove("open");
+    toggles.forEach(t => t.setAttribute("aria-expanded", "false"));
+  };
+  toggles.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const expanded = nav.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(expanded));
+    });
+  });
+  window.addEventListener("resize", () => {
+    if (window.matchMedia("(min-width: 48em)").matches) closeMenu();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeMenu();
+  });
+}
+
+function initContactForm() {
+  const form = document.getElementById("contactForm");
+  if (!form) return;
+  const status = document.getElementById("formStatus");
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const subject = document.getElementById("subject").value.trim() || "Website enquiry";
+    const message = document.getElementById("message").value.trim();
+    if (!name || !email || !message) {
+      status.textContent = "Please fill in your name, email and message.";
+      return;
+    }
+    const body = `From: ${name} (${email})%0D%0A%0D%0A${message}`;
+    const mailto = `mailto:inanoktech@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    window.location.href = mailto;
+    status.textContent = "Your email app should now open. If not, email me at inanoktech@gmail.com.";
+    form.reset();
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
+  initMenu();
+  initContactForm();
+  document.querySelectorAll("#themeToggle").forEach(btn => btn.addEventListener("click", toggleTheme));
+  if (window.matchMedia) {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const listener = e => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) applyTheme(e.matches ? "dark" : "light");
+    };
+    if (mq.addEventListener) mq.addEventListener("change", listener);
+    else if (mq.addListener) mq.addListener(listener);
+  }
 });
-
-
-/* Matrix background — respects reduced motion */
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const canvas = document.getElementById('matrix');
-if (canvas && !reduceMotion) {
-const ctx = canvas.getContext('2d', { alpha: true });
-let glyphColour = getComputedStyle(root).getPropertyValue('--code').trim();
-let fadeColour = getComputedStyle(root).getPropertyValue('--fade').trim();
-function setMatrixColours(glyph, fade) { glyphColour = glyph; fadeColour = fade; }
-window.setMatrixColours = setMatrixColours; // expose for theme updates
-
-
-const glyphs = '01<>[]{}/*+=-^;:æλΣπΩ¥£$#';
-const fontSize = 16;
-let columns = 0;
-let drops = [];
-
-
-function resizeCanvas() {
-const ratio = Math.max(window.devicePixelRatio || 1, 1);
-const { clientWidth: w, clientHeight: h } = canvas;
-canvas.width = Math.floor(w * ratio);
-canvas.height = Math.floor(h * ratio);
-ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-columns = Math.ceil(w / fontSize);
-drops = new Array(columns).fill(1);
-}
-const onResize = () => { resizeCanvas(); };
-window.addEventListener('resize', onResize);
-resizeCanvas();
-
-
-function draw() {
-ctx.fillStyle = fadeColour;
-ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-ctx.fillStyle = glyphColour;
-ctx.font = `${fontSize}px monospace`;
-for (let i = 0; i < drops.length; i++) {
-const char = glyphs.charAt(Math.floor(Math.random() * glyphs.length));
-const x = i * fontSize;
-const y = drops[i] * fontSize;
-ctx.fillText(char, x, y);
-if (y > canvas.clientHeight && Math.random() > 0.975) drops[i] = 0;
-drops[i]++;
-}
-requestAnimationFrame(draw);
-}
-requestAnimationFrame(draw);
-}

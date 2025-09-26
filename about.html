@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — Inano Knowles</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="navigationArea">
+    <nav id="navbar" aria-label="Primary">
+      <a href="index.html" class="brand" aria-label="Inano home">
+        <img id="logo-about" alt="Inano logo" width="128" height="36" data-light="img/lightmode_logo.png" data-dark="img/darkmode_logo.png" />
+      </a>
+
+      <button id="menuToggle" class="hamburger" type="button" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle menu">
+        <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+      </button>
+
+      <ul id="primaryNav" class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li class="nav-actions">
+          <button id="themeToggle" class="btn outline small" type="button" aria-pressed="false" aria-label="Toggle dark and light mode">Dark Mode</button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" class="canvas">
+    <section class="hero about" role="img" aria-label="Illustrated portrait banner">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="lead">I am a Brisbane based Software Engineer studying at QUT. I have experience leading teams and delivering outcomes with care.</p>
+        <div class="name-title">
+          <span class="name">Inano Knowles</span>
+          <span class="title">Software Engineer</span>
+        </div>
+        <div class="cta-group" id="contact">
+          <a class="btn glow" href="mailto:inanoktech@gmail.com">Contact Me</a>
+          <a class="btn outline" href="Resume2025.pdf" download="Inano_Knowles_Resume_2025.pdf">Résumé</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="aboutGrid">
+      <figure class="aboutCard">
+        <img class="avatar" src="img/my_selfie.png" alt="Portrait of Inano Knowles" />
+        <figcaption>Preferred contact: <a href="mailto:inanoktech@gmail.com">inanoktech@gmail.com</a></figcaption>
+      </figure>
+      <article class="aboutText">
+        <h2>Biography</h2>
+        <p>Kia ora, I am Inano, a Brisbane based Software Engineer and lifelong learner. I am currently studying at QUT and building strong foundations in the web stack, with a focus on accessible, responsive interfaces. I enjoy transforming ideas into usable features and I care deeply about the quality of the experience for every person. I learn quickly, communicate clearly and love working with teams where kindness and curiosity are valued. My interests include front end architecture, CSS systems, testing and the craft of interaction design. Outside of study, I build small tools that automate everyday tasks and explore creative coding challenges to sharpen my skills. I am excited to keep growing as a developer and to contribute to projects that help people in practical ways.</p>
+      </article>
+    </section>
+
+    <section class="experienceArea">
+      <h2>Experience</h2>
+      <ol class="timeline">
+        <li>
+          <div class="tl-head">
+            <strong>Coding Instructor — Junior Engineers, Brisbane</strong>
+            <span class="tl-meta">Feb 2024 – Present</span>
+          </div>
+          <p>Deliver coding workshops for ages 5–15 across Python, Scratch and the web. Adapt lessons for different ages and settings, teach core concepts like loops and conditionals, guide hands-on projects, and maintain engagement in classrooms and online.</p>
+        </li>
+        <li>
+          <div class="tl-head">
+            <strong>Founding President — QUT The Emerging Coders Hub</strong>
+            <span class="tl-meta">Oct 2024 – Present</span>
+          </div>
+          <p>Established a student tech club, grew membership to 135 in three months, coordinated collaboration with Trello, Discord and Google Workspace, ran Python, JavaScript and C# workshops, and launched mentoring and professional development initiatives.</p>
+        </li>
+        <li>
+          <div class="tl-head">
+            <strong>Events Facilitator — QUT Women in Technology</strong>
+            <span class="tl-meta">Feb 2025 – Present</span>
+          </div>
+          <p>Support event planning and delivery, manage logistics and vendor liaison, assist with budgeting and promotion, and collaborate across the executive to run well organised, inclusive events.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="educationArea">
+      <h2>Education</h2>
+      <ul class="edu-list">
+        <li>
+          <span class="edu-title">Bachelor of Information Technology — Queensland University of Technology, Brisbane</span>
+          <span class="edu-meta">Jul 2023 – Expected 2026</span>
+        </li>
+        <li>
+          <span class="edu-title">Diploma of Information Technology — Queensland University of Technology, Brisbane</span>
+          <span class="edu-meta">Jul 2023 – Jul 2024</span>
+        </li>
+        <li>
+          <span class="edu-title">Software Engineering Bootcamp — General Assembly Australia, Sydney</span>
+          <span class="edu-meta">Nov 2023 – Mar 2024</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="hobbiesArea">
+      <h2>Hobbies</h2>
+      <p>I enjoy anime and cosy core games that feel calm, creative and story driven.</p>
+      <ul class="chips">
+        <li class="chip">Anime</li>
+        <li class="chip">Cosy core games</li>
+        <li class="chip">Creative coding</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footerArea">
+    <p>© 2025 Inano Knowles</p>
+    <p><a href="mailto:inanoktech@gmail.com">Email me</a> · <a href="https://github.com/InanoKnowles" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+</body>
+</html>
