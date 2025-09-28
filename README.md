@@ -6,24 +6,24 @@
 
 ### Content
  Add a short paragraph describing the features below. What aesthetic and technical choices did you make? 
-- [:heavy_check_mark:] At least one profile picture
-- [:heavy_check_mark:] Biography (at least 100 words)
-- [:heavy_check_mark:] Unfunctional Contact Form
-- [:heavy_check_mark:] "Projects" section
-- [:heavy_check_mark:] Links to external sites, e.g. GitHub and LinkedIn.
+- :heavy_check_mark: At least one profile picture
+- :heavy_check_mark: Biography (at least 100 words)
+- :heavy_check_mark: Unfunctional Contact Form
+- :heavy_check_mark: "Projects" section
+- :heavy_check_mark: Links to external sites, e.g. GitHub and LinkedIn.
 ​
 ### Technical
  Add a short paragraph describing the features below. What strategies or design decisions did you work from? 
-- [:heavy_check_mark:] At least 2 web pages.
-- [:heavy_check_mark:] Version controlled with Git
-- [:heavy_check_mark:] Deployed on GitHub pages.
-- [:heavy_check_mark:] Implements responsive design principles.
-- [:heavy_check_mark:] Uses semantic HTML.
+- :heavy_check_mark: At least 2 web pages.
+- :heavy_check_mark: Version controlled with Git
+- :heavy_check_mark: Deployed on GitHub pages.
+- :heavy_check_mark: Implements responsive design principles.
+- :heavy_check_mark: Uses semantic HTML.
 
 ### Bonus (optional)
-- [:heavy_check_mark:] Add a short paragraph describing the features below, if you included any. 
-- [:heavy_check_mark:] Different styles for active, hover and focus states.
-- [:heavy_check_mark:] Include JavaScript to add some dynamic elements to your site. (Extra tricky!)
+- :heavy_check_mark: Add a short paragraph describing the features below, if you included any. 
+- :heavy_check_mark: Different styles for active, hover and focus states.
+- :heavy_check_mark: Include JavaScript to add some dynamic elements to your site. (Extra tricky!)
 
 ## Feature Description:
 I built a two page portfolio that is easy to use. Navigation uses clean white buttons with black borders that turn bright blue on hover or focus, and the Light or Dark toggle remembers your choice. The logo switches to suit the theme for clear contrast. On mobile, a hamburger menu opens and closes accessibly, including Escape and click outside behaviour. Projects link to live demos and repositories. The About page uses left-aligned timelines for experience and education. A preferred contact card and a left-aligned contact form provide ways to reach me, with validation, status messages, and keyboard-friendly focus styles.
@@ -69,10 +69,16 @@ I built a two page portfolio that is easy to use. Navigation uses clean white bu
 ### Screenshots of Different Screen Sizes
 
 ####  Home Page - Desktop Annotated (Light Mode)
-![Light mode Home Page Full Desktop Screen with annotations](./img/ss/lightmode_home_annotated.jpeg.png)
+![Light mode Home Page Full Desktop Screen with annotations](./img/ss/lightmode_home_annotated.jpeg)
 
 ####  Home Page - Desktop Annotated (Dark Mode)
 ![Dark mode Home Page Full Desktop Screen with annotations](./img/ss/darkmode_home_annotated.jpeg)
+
+####  About Page - Desktop Annotated (Light Mode)
+![Light mode About Page Full Desktop Screen with annotations](./img/ss/lightmode_about_annotated.jpeg)
+
+####  About Page - Desktop Annotated (Dark Mode)
+![Dark mode About Page Full Desktop Screen with annotations](./img/ss/darkmode_about_annotated.jpeg)
 
 ####  Home Page - Different Screen Sizes (Light Mode)
 ##### Small:
