@@ -2,9 +2,10 @@
 <html lang="en" data-theme="">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Portfolio of Inano Knowles, Brisbane based Software Engineer. Accessible, responsive projects and contact details." />
   <title>Inano Knowles</title>
+
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,18 +18,21 @@
   <header class="navigationArea">
     <nav id="navbar" aria-label="Primary">
       <a href="index.html" class="brand" aria-label="Inano home">
-        <img id="logo" alt="Inano logo" width="128" height="36" data-light="img/lightmode_logo.png" data-dark="img/darkmode_logo.png" />
+        <img id="logo" alt="Inano logo" width="128" height="36"
+             data-light="img/lightmode_logo.png" data-dark="img/darkmode_logo.png" />
       </a>
 
-      <button id="menuToggle" class="hamburger" type="button" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle menu">
+      <button class="hamburger" type="button" aria-controls="primaryNav" aria-expanded="false"
+              aria-label="Toggle menu" data-menu-toggle>
         <span class="hamburger-box"><span class="hamburger-inner"></span></span>
       </button>
 
-      <ul id="primaryNav" class="nav-list">
-        <li><a href="index.html" aria-current="page">Home</a></li>
-        <li><a href="about.html">About</a></li>
+      <ul id="primaryNav" class="nav-list" hidden>
+        <li><a class="btn small" href="index.html" aria-current="page">Home</a></li>
+        <li><a class="btn small" href="about.html">About</a></li>
         <li class="nav-actions">
-          <button id="themeToggle" class="btn outline small" type="button" aria-pressed="false" aria-label="Toggle dark and light mode">Dark Mode</button>
+          <button class="btn small" type="button" aria-pressed="false"
+                  aria-label="Toggle dark and light mode" data-theme-toggle>Dark mode</button>
         </li>
       </ul>
     </nav>
@@ -36,98 +40,93 @@
   
   <main id="main" class="canvas">
     <section class="hero home" role="img" aria-label="Ocean moon illustration">
-      <div class="hero-overlay"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
       <div class="hero-content">
         <h1>Inano Knowles</h1>
         <p class="tagline">Software Engineer</p>
         <div class="cta-group">
-          <a class="btn glow" href="about.html#contact">Contact Me</a>
-          <a class="btn outline" href="Resume2025.pdf" download="Inano_Knowles_Resume_2025.pdf">Résumé</a>
+          <a class="btn" href="about.html#contact">Contact me</a>
+          <a class="btn" href="Resume2025.pdf" download="Inano_Knowles_Resume_2025.pdf">Résumé</a>
         </div>
       </div>
     </section>
 
-    <section class="hobbiesArea">
-      <h2>Tech Stack</h2>
+    <section class="hobbiesArea" aria-labelledby="techStackHeading">
+      <h2 id="techStackHeading">Tech stack</h2>
       <p>I love working with the following:</p>
-      <ul class="chips">
+      <ul class="chips" aria-label="Technologies">
         <li class="chip">HTML</li>
         <li class="chip">CSS</li>
         <li class="chip">JavaScript</li>
         <li class="chip">Python</li>
         <li class="chip">Django</li>
-        <li class="chip">React JS</li>
+        <li class="chip">React</li>
       </ul>
     </section>
 
-    <section class="contentArea">
-      <h2>Projects</h2>
+    <section class="contentArea" aria-labelledby="projectsHeading">
+      <h2 id="projectsHeading">Projects</h2>
       <p>Below are projects from my studies and personal learning.</p>
 
       <div class="projectGrid grid-1-3-4">
         <article class="project">
           <h3>Tic Tac Toe</h3>
-          <img src="img/project1.png" alt="Tic Tac Toe screenshot" />
+          <img src="img/project1.png" alt="Screenshot of Tic Tac Toe game" loading="lazy" />
           <p>A two-player game on one device using the mouse.</p>
-          <div class="cta-group">
-            <a class="btn glow" href="https://inanoknowles.github.io/Tic_Tac_Toe/" target="_blank" rel="noopener">Play Now</a>
-            <a class="btn outline" href="https://github.com/InanoKnowles/Tic_Tac_Toe" target="_blank" rel="noopener">Repository</a>
+          <div class="cta-group" role="group" aria-label="Tic Tac Toe links">
+            <a class="btn" href="https://inanoknowles.github.io/Tic_Tac_Toe/" target="_blank" rel="noopener noreferrer">Play now</a>
+            <a class="btn" href="https://github.com/InanoKnowles/Tic_Tac_Toe" target="_blank" rel="noopener noreferrer">Repository</a>
           </div>
         </article>
 
         <article class="project">
           <h3>Giphman</h3>
-          <img src="img/project2.png" alt="Giphman screenshot" />
+          <img src="img/project2.png" alt="Screenshot of Giphman guessing game" loading="lazy" />
           <p>Guess the secret word or phrase using visual hints.</p>
-          <div class="cta-group">
-            <a class="btn glow" href="https://inanos-giphman.surge.sh/" target="_blank" rel="noopener">Play Now</a>
-            <a class="btn outline" href="https://github.com/InanoKnowles/Project4" target="_blank" rel="noopener">Repository</a>
+          <div class="cta-group" role="group" aria-label="Giphman links">
+            <a class="btn" href="https://inanos-giphman.surge.sh/" target="_blank" rel="noopener noreferrer">Play now</a>
+            <a class="btn" href="https://github.com/InanoKnowles/Project4" target="_blank" rel="noopener noreferrer">Repository</a>
           </div>
         </article>
 
         <article class="project">
           <h3>Project Three</h3>
-          <img src="img/lightmode_homepage.png" alt="Project three screenshot" />
+          <img src="img/lightmode_homepage.png" alt="Placeholder for project three" loading="lazy" />
           <p>Front end performance exploration.</p>
           <div class="cta-group">
-            <span class="btn glow" aria-disabled="true">Coming Soon</span>
-            <span class="btn outline" aria-disabled="true">Repository</span>
+            <button class="btn" type="button" disabled aria-disabled="true">Coming soon</button>
+            <button class="btn" type="button" disabled aria-disabled="true">Repository</button>
           </div>
         </article>
 
         <article class="project">
           <h3>Project Four</h3>
-          <img src="img/lightmode_homepage.png" alt="Project three screenshot" />
+          <img src="img/lightmode_homepage.png" alt="Placeholder for project four" loading="lazy" />
           <p>Front end performance exploration.</p>
           <div class="cta-group">
-            <span class="btn glow" aria-disabled="true">Coming Soon</span>
-            <span class="btn outline" aria-disabled="true">Repository</span>
+            <button class="btn" type="button" disabled aria-disabled="true">Coming soon</button>
+            <button class="btn" type="button" disabled aria-disabled="true">Repository</button>
           </div>
         </article>
-
       </div>
     </section>
 
     <section class="preferredCard" aria-labelledby="preferredHeading">
       <h2 id="preferredHeading" class="visually-hidden">Preferred contact</h2>
       <div class="pref-inner">
-        <h2>Preferred Contact Methods</h2>
-        <img class="pref-avatar" src="img/phone.png" alt="Portrait of Inano Knowles" />
-        <div class="pref-links">
-          <a class="btn glow" href="https://github.com/InanoKnowles" target="_blank" rel="noopener" aria-label="GitHub profile">GitHub</a>
-          <a class="btn outline" href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn profile">LinkedIn</a>
-          <a class="btn outline" href="mailto:inanoktech@gmail.com" aria-label="Send email to inanoktech@gmail.com">Gmail</a>
+        <h2>Preferred contact methods</h2>
+        <img class="pref-avatar" src="img/phone.png" alt="Illustration of a phone" loading="lazy" />
+        <div class="pref-links" role="group" aria-label="Contact links">
+          <a class="btn" href="https://github.com/InanoKnowles" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">LinkedIn</a>
+          <a class="btn" href="mailto:inanoktech@gmail.com" aria-label="Send email to inanoktech@gmail.com">Gmail</a>
         </div>
       </div>
     </section>
-
-    
   </main>
-
 
   <footer class="footerArea">
     <p>© 2025 Inano Knowles</p>
-    <p><a href="mailto:inanoktech@gmail.com">Email me</a> · <a href="https://github.com/InanoKnowles" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a></p>
   </footer>
 </body>
 </html>
