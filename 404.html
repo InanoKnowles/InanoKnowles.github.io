@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lost at sea — Inano Knowles</title>
+  <meta name="description" content="404 — this page drifted off the reef. Paddle back home or send up a flare." />
+  <meta name="theme-color" content="#fffaf1" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#031728" media="(prefers-color-scheme: dark)" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles/main.css" />
+
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("inano-theme");
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="noscript-reveal">
+  <noscript>
+    <style>[data-reveal]{opacity:1 !important;transform:none !important;}</style>
+  </noscript>
+
+  <div class="scene-background" aria-hidden="true">
+    <div id="scene-light" class="scene-host" data-scene="island"></div>
+    <div id="scene-dark" class="scene-host" data-scene="underwater"></div>
+  </div>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" class="wordmark" aria-label="Back home — Inano Knowles">
+        <span class="wordmark-dot" aria-hidden="true">
+          <span class="wordmark-dot-core"></span>
+        </span>
+        <span class="wordmark-name-full">Inano Knowles</span>
+        <span class="wordmark-name-short">Inano</span>
+      </a>
+
+      <ul class="nav-links" role="menubar">
+        <li role="none"><a role="menuitem" class="nav-link" href="index.html#about">About</a></li>
+        <li role="none"><a role="menuitem" class="nav-link" href="index.html#projects">Work</a></li>
+        <li role="none"><a role="menuitem" class="nav-link" href="projects.html">All projects</a></li>
+        <li role="none"><a role="menuitem" class="nav-link" href="index.html#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <a class="nav-cta" href="index.html#contact">
+          <span>Say kia orana</span>
+          <span class="nav-cta-arrow" aria-hidden="true">→</span>
+        </a>
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <span class="theme-toggle-knob">
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.5"/>
+              <g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none">
+                <line x1="12" y1="2" x2="12" y2="4.5"/>
+                <line x1="12" y1="19.5" x2="12" y2="22"/>
+                <line x1="2" y1="12" x2="4.5" y2="12"/>
+                <line x1="19.5" y1="12" x2="22" y2="12"/>
+                <line x1="4.6" y1="4.6" x2="6.4" y2="6.4"/>
+                <line x1="17.6" y1="17.6" x2="19.4" y2="19.4"/>
+                <line x1="4.6" y1="19.4" x2="6.4" y2="17.6"/>
+                <line x1="17.6" y1="6.4" x2="19.4" y2="4.6"/>
+              </g>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+            </svg>
+          </span>
+        </button>
+        <button
+          type="button"
+          id="hamburger"
+          class="hamburger"
+          aria-label="Open menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="hamburger-bars" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <ul class="mobile-menu-list">
+      <li><a class="mobile-menu-link" href="index.html#about">About</a></li>
+      <li><a class="mobile-menu-link" href="index.html#projects">Work</a></li>
+      <li><a class="mobile-menu-link" href="projects.html">All projects</a></li>
+      <li><a class="mobile-menu-link" href="index.html#contact">Contact</a></li>
+    </ul>
+    <a class="mobile-menu-cta" href="index.html#contact">
+      <span>Say kia orana</span>
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <main>
+    <div class="editorial-canvas">
+      <section class="section not-found-section">
+        <span class="not-found-motif not-found-motif--tl" aria-hidden="true" data-motif="340" data-motif-color="var(--accent)" data-motif-accent="var(--accent-2)"></span>
+        <span class="not-found-motif not-found-motif--br" aria-hidden="true" data-motif="300" data-motif-color="var(--accent-3)" data-motif-accent="var(--accent-warm)"></span>
+
+        <div class="container not-found-inner">
+          <span class="eyebrow not-found-eyebrow" data-reveal>404 &middot; lost at sea</span>
+          <h1 class="not-found-title" data-reveal data-reveal-delay="1">
+            This page drifted <em>off the reef</em>.
+          </h1>
+          <p class="not-found-lede" data-reveal data-reveal-delay="2">
+            A coconut crab borrowed the link, the easterly wind took the rest.
+            Nothing&rsquo;s broken — you&rsquo;re just somewhere the map doesn&rsquo;t
+            quite reach yet.
+          </p>
+
+          <pre class="not-found-crab" aria-hidden="true" data-reveal data-reveal-delay="3">
+   (\/)
+  \ (ಠ_ಠ) /
+  /  |  \
+    ¯¯ ¯¯
+          </pre>
+
+          <div class="not-found-ctas" data-reveal data-reveal-delay="4">
+            <a class="btn btn-primary" href="index.html">
+              <span class="btn-arrow" aria-hidden="true">←</span>
+              <span>Paddle back home</span>
+            </a>
+            <a class="btn btn-secondary" href="index.html#contact">
+              <span>Send up a flare</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <p class="not-found-meta" data-reveal data-reveal-delay="5">
+            <em>Meitaki ma&rsquo;ata</em> for your patience on the detour.
+          </p>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="site-footer-inner">
+          <p>
+            &copy; <span id="year">2026</span> Inano Knowles &middot;
+            <em>meitaki</em> for visiting
+          </p>
+          <p class="site-footer-right">Rarotonga → Meanjin &middot; stitched with aroa</p>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <div id="tivaevae-bloom" class="tivaevae-bloom" aria-hidden="true">
+    <span class="tivaevae-bloom-motif" data-motif="420" data-motif-color="var(--accent)" data-motif-accent="var(--accent-2)"></span>
+    <p class="tivaevae-bloom-caption">stitched with aroa</p>
+  </div>
+
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>

@@ -1,132 +1,551 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Portfolio of Inano Knowles, Brisbane based Software Engineer. Accessible, responsive projects and contact details." />
-  <title>Inano Knowles</title>
+  <title>Inano Knowles — Cook Islands software engineer</title>
+  <meta name="description" content="Portfolio of Inano Knowles, a proud Cook Islands software engineer, QUT Guild President of the Year, and Women in Digital 2025 Rising Star. Stitching technology with tupuna wisdom." />
+  <meta name="theme-color" content="#fffaf1" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#031728" media="(prefers-color-scheme: dark)" />
 
-  <link rel="stylesheet" href="style.css" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Inano Knowles" />
+  <meta property="og:description" content="Cook Islands software engineer, student leader, and 2025 Women in Digital Rising Star." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
-  <script defer src="script.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <header class="navigationArea">
-    <nav id="navbar" aria-label="Primary">
-      <a href="index.html" class="brand" aria-label="Inano home">
-        <img id="logo" alt="Inano logo" width="128" height="36"
-             data-light="img/lightmode_logo.png" data-dark="img/darkmode_logo.png" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/main.css" />
+
+  <!-- Theme init (inline to avoid flash-of-wrong-theme) -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("inano-theme");
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="noscript-reveal">
+  <noscript>
+    <style>[data-reveal]{opacity:1 !important;transform:none !important;}</style>
+  </noscript>
+
+  <!-- Pixi scene sits behind everything -->
+  <div class="scene-background" aria-hidden="true">
+    <div id="scene-light" class="scene-host" data-scene="island"></div>
+    <div id="scene-dark" class="scene-host" data-scene="underwater"></div>
+  </div>
+
+  <!-- Nav -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a href="#hero" class="wordmark" id="wordmark" aria-label="Back to top — Inano Knowles (try tapping the mark three times)">
+        <span class="wordmark-dot" aria-hidden="true">
+          <span class="wordmark-dot-core"></span>
+        </span>
+        <span class="wordmark-name-full">Inano Knowles</span>
+        <span class="wordmark-name-short">Inano</span>
       </a>
 
-      <button class="hamburger" type="button" aria-controls="primaryNav" aria-expanded="false"
-              aria-label="Toggle menu" data-menu-toggle>
-        <span class="hamburger-box"><span class="hamburger-inner"></span></span>
-      </button>
-
-      <ul id="primaryNav" class="nav-list" hidden>
-        <li><a class="btn small" href="index.html" aria-current="page">Home</a></li>
-        <li><a class="btn small" href="about.html">About</a></li>
-        <li class="nav-actions">
-          <button class="btn small" type="button" aria-pressed="false"
-                  aria-label="Toggle dark and light mode" data-theme-toggle>Dark mode</button>
-        </li>
+      <ul class="nav-links" role="menubar">
+        <li role="none"><a role="menuitem" class="nav-link" href="#about" data-nav="#about">About</a></li>
+        <li role="none"><a role="menuitem" class="nav-link" href="#projects" data-nav="#projects">Work</a></li>
+        <li role="none"><a role="menuitem" class="nav-link" href="projects.html">All projects</a></li>
+        <li role="none"><a role="menuitem" class="nav-link" href="#contact" data-nav="#contact">Contact</a></li>
       </ul>
+
+      <div class="nav-right">
+        <a class="nav-cta" href="#contact">
+          <span>Say kia orana</span>
+          <span class="nav-cta-arrow" aria-hidden="true">→</span>
+        </a>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="theme-toggle"
+          aria-label="Toggle theme"
+          title="Toggle theme"
+        >
+          <span class="theme-toggle-knob">
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.5"/>
+              <g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none">
+                <line x1="12" y1="2" x2="12" y2="4.5"/>
+                <line x1="12" y1="19.5" x2="12" y2="22"/>
+                <line x1="2" y1="12" x2="4.5" y2="12"/>
+                <line x1="19.5" y1="12" x2="22" y2="12"/>
+                <line x1="4.6" y1="4.6" x2="6.4" y2="6.4"/>
+                <line x1="17.6" y1="17.6" x2="19.4" y2="19.4"/>
+                <line x1="4.6" y1="19.4" x2="6.4" y2="17.6"/>
+                <line x1="17.6" y1="6.4" x2="19.4" y2="4.6"/>
+              </g>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+            </svg>
+          </span>
+        </button>
+        <button
+          type="button"
+          id="hamburger"
+          class="hamburger"
+          aria-label="Open menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="hamburger-bars" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+      </div>
     </nav>
   </header>
-  
-  <main id="main" class="canvas">
-    <section class="hero home" role="img" aria-label="Ocean moon illustration">
-      <div class="hero-overlay" aria-hidden="true"></div>
+
+  <!-- Mobile menu drawer -->
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <ul class="mobile-menu-list">
+      <li><a class="mobile-menu-link" href="#about">About</a></li>
+      <li><a class="mobile-menu-link" href="#projects">Work</a></li>
+      <li><a class="mobile-menu-link" href="projects.html">All projects</a></li>
+      <li><a class="mobile-menu-link" href="#contact">Contact</a></li>
+    </ul>
+    <a class="mobile-menu-cta" href="#contact">
+      <span>Say kia orana</span>
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <main>
+    <!-- Hero -->
+    <section id="hero" class="hero">
+      <div class="hero-veil" aria-hidden="true"></div>
+      <div class="aurora" aria-hidden="true"></div>
+
+      <span class="hero-motif hero-motif--left" aria-hidden="true" data-motif="260" data-motif-color="var(--accent-3)" data-motif-accent="var(--accent-2)"></span>
+      <span class="hero-motif hero-motif--right" aria-hidden="true" data-motif="220" data-motif-color="var(--accent-warm)" data-motif-accent="var(--accent-3)"></span>
+
       <div class="hero-content">
-        <h1>Inano Knowles</h1>
-        <p class="tagline">Software Engineer</p>
-        <div class="cta-group">
-          <a class="btn" href="about.html#contact">Contact me</a>
-          <a class="btn" href="Resume2025.pdf" download="Inano_Knowles_Resume_2025.pdf">Résumé</a>
+        <div class="hero-badge" data-reveal="fade">
+          <span class="hero-badge-pulse" aria-hidden="true"></span>
+          Kia Orana — welcome
         </div>
-      </div>
-    </section>
 
-    <section class="hobbiesArea" aria-labelledby="techStackHeading">
-      <h2 id="techStackHeading">Tech stack</h2>
-      <p>I love working with the following:</p>
-      <ul class="chips" aria-label="Technologies">
-        <li class="chip">HTML</li>
-        <li class="chip">CSS</li>
-        <li class="chip">JavaScript</li>
-        <li class="chip">Python</li>
-        <li class="chip">Django</li>
-        <li class="chip">React</li>
-      </ul>
-    </section>
+        <h1 class="hero-title">
+          <span class="hero-title-line hero-title-line--first" data-reveal>Inano</span>
+          <span class="hero-title-line hero-title-line--second" data-reveal data-reveal-delay="1">
+            <span class="hero-title-gradient">Knowles</span>
+          </span>
+        </h1>
 
-    <section class="contentArea" aria-labelledby="projectsHeading">
-      <h2 id="projectsHeading">Projects</h2>
-      <p>Below are projects from my studies and personal learning.</p>
+        <p class="hero-lede" data-reveal data-reveal-delay="2">
+          Software engineer, student leader, and proud Cook Islander.
+          <em>Each line of code a stitch; each community a pattern.</em>
+        </p>
 
-      <div class="projectGrid grid-1-3-4">
-        <article class="project">
-          <h3>Tic Tac Toe</h3>
-          <img src="img/project1.png" alt="Screenshot of Tic Tac Toe game" loading="lazy" />
-          <p>A two-player game on one device using the mouse.</p>
-          <div class="cta-group" role="group" aria-label="Tic Tac Toe links">
-            <a class="btn" href="https://inanoknowles.github.io/Tic_Tac_Toe/" target="_blank" rel="noopener noreferrer">Play now</a>
-            <a class="btn" href="https://github.com/InanoKnowles/Tic_Tac_Toe" target="_blank" rel="noopener noreferrer">Repository</a>
-          </div>
-        </article>
-
-        <article class="project">
-          <h3>Giphman</h3>
-          <img src="img/project2.png" alt="Screenshot of Giphman guessing game" loading="lazy" />
-          <p>Guess the secret word or phrase using visual hints.</p>
-          <div class="cta-group" role="group" aria-label="Giphman links">
-            <a class="btn" href="https://inanos-giphman.surge.sh/" target="_blank" rel="noopener noreferrer">Play now</a>
-            <a class="btn" href="https://github.com/InanoKnowles/Project4" target="_blank" rel="noopener noreferrer">Repository</a>
-          </div>
-        </article>
-
-        <article class="project">
-          <h3>Project Three</h3>
-          <img src="img/lightmode_homepage.png" alt="Placeholder for project three" loading="lazy" />
-          <p>Front end performance exploration.</p>
-          <div class="cta-group">
-            <button class="btn" type="button" disabled aria-disabled="true">Coming soon</button>
-            <button class="btn" type="button" disabled aria-disabled="true">Repository</button>
-          </div>
-        </article>
-
-        <article class="project">
-          <h3>Project Four</h3>
-          <img src="img/lightmode_homepage.png" alt="Placeholder for project four" loading="lazy" />
-          <p>Front end performance exploration.</p>
-          <div class="cta-group">
-            <button class="btn" type="button" disabled aria-disabled="true">Coming soon</button>
-            <button class="btn" type="button" disabled aria-disabled="true">Repository</button>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="preferredCard" aria-labelledby="preferredHeading">
-      <h2 id="preferredHeading" class="visually-hidden">Preferred contact</h2>
-      <div class="pref-inner">
-        <h2>Preferred contact methods</h2>
-        <img class="pref-avatar" src="img/phone.png" alt="Illustration of a phone" loading="lazy" />
-        <div class="pref-links" role="group" aria-label="Contact links">
-          <a class="btn" href="https://github.com/InanoKnowles" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">GitHub</a>
-          <a class="btn" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">LinkedIn</a>
-          <a class="btn" href="mailto:inanoktech@gmail.com" aria-label="Send email to inanoktech@gmail.com">Gmail</a>
+        <div class="hero-actions" data-reveal data-reveal-delay="3">
+          <a href="#projects" class="btn btn-primary">
+            <span>See the work</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="#about" class="btn btn-secondary">Meet Inano</a>
         </div>
+
+        <dl class="hero-stats" data-reveal data-reveal-delay="4">
+          <div class="hero-stat">
+            <dt>🏆</dt>
+            <dd>Award winner</dd>
+          </div>
+          <div class="hero-stat">
+            <dt>🎤</dt>
+            <dd>Public speaker</dd>
+          </div>
+          <div class="hero-stat">
+            <dt>🌺</dt>
+            <dd>Community leader</dd>
+          </div>
+        </dl>
+
+        <a href="#about" class="hero-scroll" aria-label="Scroll to About" data-reveal="fade" data-reveal-delay="5">
+          <span>Scroll to explore</span>
+          <span class="hero-scroll-icon" aria-hidden="true"></span>
+        </a>
       </div>
+
+      <div class="hero-trail" id="hero-trail" aria-hidden="true"></div>
     </section>
+
+    <div class="editorial-canvas">
+      <!-- About -->
+      <section id="about" class="section">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">01 / About</span>
+            <span class="stitch-line" aria-hidden="true"></span>
+            <span class="eyebrow">Who I am</span>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-left">
+              <span class="about-motif" aria-hidden="true" data-motif="320" data-motif-color="var(--accent-3)" data-motif-accent="var(--accent-2)"></span>
+
+              <h2 class="section-title" data-reveal>
+                Rooted in the <em>Pa Enua</em>, reaching into tech.
+              </h2>
+              <p class="about-sub" data-reveal data-reveal-delay="1">
+                The Pa Enua are the outer islands of the Cook Islands; fifteen
+                specks of volcanic rock and coral in an ocean of blue. That&rsquo;s
+                where my family comes from. It&rsquo;s what I carry into every room I walk into.
+              </p>
+            </div>
+
+            <div class="about-right">
+              <p data-reveal>
+                I&rsquo;m Inano, a proud Cook Islander in her final year of a
+                <strong>Bachelor of Information Technology</strong> at QUT,
+                majoring in Information Systems and minoring in Computer Science.
+              </p>
+              <p data-reveal data-reveal-delay="1">
+                There aren&rsquo;t many Polynesians in tech, and that&rsquo;s exactly
+                why I show up the way I do; founding communities, mentoring
+                emerging coders, and carrying my culture into every room I walk
+                into.
+              </p>
+              <p data-reveal data-reveal-delay="2">
+                Soon I&rsquo;ll be joining Westpac&rsquo;s <strong>Next Wave program</strong>
+                as a Software Engineer. Until then I&rsquo;m still shipping, still
+                learning, and still stitching together a career like a tivaevae; one deliberate pattern at a time.
+              </p>
+
+              <ul class="accolades" data-reveal-group>
+                <li class="accolade" data-tone="lagoon" data-reveal data-reveal-delay="1">
+                  <div class="accolade-body">
+                    <div class="accolade-head">
+                      <span class="accolade-year">Soon</span>
+                      <span class="accolade-rule" aria-hidden="true"></span>
+                    </div>
+                    <p class="accolade-title">Software Engineer</p>
+                    <p class="accolade-org">Westpac</p>
+                  </div>
+                </li>
+                <li class="accolade" data-tone="coral" data-reveal data-reveal-delay="2">
+                  <div class="accolade-body">
+                    <div class="accolade-head">
+                      <span class="accolade-year">2026</span>
+                      <span class="accolade-rule" aria-hidden="true"></span>
+                    </div>
+                    <p class="accolade-title">Bootcamp Graduate</p>
+                    <p class="accolade-org">She Codes Plus</p>
+                  </div>
+                </li>
+                <li class="accolade" data-tone="sand" data-reveal data-reveal-delay="3">
+                  <div class="accolade-body">
+                    <div class="accolade-head">
+                      <span class="accolade-year">2025</span>
+                      <span class="accolade-rule" aria-hidden="true"></span>
+                    </div>
+                    <p class="accolade-title">Rising Star of the Year</p>
+                    <p class="accolade-org">Women in Digital</p>
+                  </div>
+                </li>
+                <li class="accolade" data-tone="lagoon" data-reveal data-reveal-delay="4">
+                  <div class="accolade-body">
+                    <div class="accolade-head">
+                      <span class="accolade-year">2025</span>
+                      <span class="accolade-rule" aria-hidden="true"></span>
+                    </div>
+                    <p class="accolade-title">President of the Year</p>
+                    <p class="accolade-org">QUT Guild</p>
+                  </div>
+                </li>
+                <li class="accolade" data-tone="coral" data-reveal data-reveal-delay="5">
+                  <div class="accolade-body">
+                    <div class="accolade-head">
+                      <span class="accolade-year">2024</span>
+                      <span class="accolade-rule" aria-hidden="true"></span>
+                    </div>
+                    <p class="accolade-title">Founding President</p>
+                    <p class="accolade-org">QUT The Emerging Coders Hub</p>
+                  </div>
+                </li>
+                <li class="accolade" data-tone="sand" data-reveal data-reveal-delay="6">
+                  <div class="accolade-body">
+                    <div class="accolade-head">
+                      <span class="accolade-year">Current</span>
+                      <span class="accolade-rule" aria-hidden="true"></span>
+                    </div>
+                    <p class="accolade-title">Bachelor of I.T.</p>
+                    <p class="accolade-org">Queensland University of Technology</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects (preview) -->
+      <section id="projects" class="section">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">02 / Work</span>
+            <span class="stitch-line" aria-hidden="true"></span>
+            <span class="eyebrow">4 pieces &middot; stitched together</span>
+          </div>
+
+          <div class="projects-intro">
+            <div class="projects-intro-text">
+              <h2 class="section-title" data-reveal>
+                Work I&rsquo;m <em>proud</em> of.
+              </h2>
+              <p class="projects-lede" data-reveal data-reveal-delay="1">
+                Code, community, and leadership; each one stitched together like a tivaevae.
+              </p>
+            </div>
+          </div>
+
+          <!-- Featured -->
+          <article class="project-card-featured" data-reveal>
+            <div class="project-featured-visual">
+              <span class="project-featured-motif" aria-hidden="true" data-motif="520" data-motif-color="var(--accent)" data-motif-accent="var(--accent-2)"></span>
+              <div class="project-featured-visual-inner">
+                <div class="project-featured-number">
+                  <span class="project-featured-number-big">01</span>
+                  <span class="eyebrow">Community &middot; Leadership</span>
+                </div>
+                <div>
+                  <p class="eyebrow">Featured</p>
+                  <p class="project-featured-year">2024 — present</p>
+                </div>
+              </div>
+            </div>
+            <div class="project-featured-body">
+              <div>
+                <h3 class="project-featured-title">Emerging Coders Hub</h3>
+                <p class="project-featured-desc">
+                  Founded QUT&rsquo;s Emerging Coders Hub from a blank page to a thriving student community — designing programs, running workshops, and mentoring the next wave of developers. Built the thing I wished existed when I started.
+                </p>
+              </div>
+              <ul class="tag-list">
+                <li class="tag">Community</li>
+                <li class="tag">Program Design</li>
+                <li class="tag">Mentorship</li>
+                <li class="tag">Workshops</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Grid of 3 -->
+          <div class="projects-grid">
+            <article class="project-card" data-reveal data-reveal-delay="1">
+              <span class="project-card-motif" aria-hidden="true" data-motif="220" data-motif-color="var(--accent-3)" data-motif-accent="var(--accent-2)"></span>
+              <div class="project-card-body">
+                <div class="project-card-head">
+                  <span class="project-card-number">02</span>
+                  <span class="eyebrow">2024</span>
+                </div>
+                <p class="project-card-kaupapa eyebrow">Policy &middot; Student Advocacy</p>
+                <h3 class="project-card-title">QUT Guild Initiatives</h3>
+                <p class="project-card-desc">
+                  Led student-experience initiatives as Guild President — translating big ideas into shipped programs. Recognised as Guild President of the Year.
+                </p>
+                <ul class="tag-list">
+                  <li class="tag">Leadership</li>
+                  <li class="tag">Strategy</li>
+                  <li class="tag">Advocacy</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card" data-reveal data-reveal-delay="2">
+              <span class="project-card-motif" aria-hidden="true" data-motif="220" data-motif-color="var(--accent-2)" data-motif-accent="var(--accent)"></span>
+              <div class="project-card-body">
+                <div class="project-card-head">
+                  <span class="project-card-number">03</span>
+                  <span class="eyebrow">2023</span>
+                </div>
+                <p class="project-card-kaupapa eyebrow">Full-stack &middot; Bootcamp</p>
+                <h3 class="project-card-title">She Codes Plus Capstone</h3>
+                <p class="project-card-desc">
+                  Graduated the She Codes Plus bootcamp with a full-stack web project — a reminder that women belong at every layer of the stack, especially the foundations.
+                </p>
+                <ul class="tag-list">
+                  <li class="tag">React</li>
+                  <li class="tag">Node</li>
+                  <li class="tag">Postgres</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card" data-reveal data-reveal-delay="3">
+              <span class="project-card-motif" aria-hidden="true" data-motif="220" data-motif-color="var(--accent)" data-motif-accent="var(--accent-3)"></span>
+              <div class="project-card-body">
+                <div class="project-card-head">
+                  <span class="project-card-number">04</span>
+                  <span class="eyebrow">2026</span>
+                </div>
+                <p class="project-card-kaupapa eyebrow">Incoming &middot; Software Engineer</p>
+                <h3 class="project-card-title">Next Wave at Westpac</h3>
+                <p class="project-card-desc">
+                  About to join Westpac&rsquo;s Next Wave graduate program as a Software Engineer — carrying my island, my community, and everything I&rsquo;ve built into enterprise-scale code.
+                </p>
+                <ul class="tag-list">
+                  <li class="tag">Graduate Program</li>
+                  <li class="tag">Engineering</li>
+                  <li class="tag">Fintech</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <div style="margin-top: 2.5rem; text-align: center;">
+            <a href="projects.html" class="btn btn-secondary">
+              <span>See every project</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="section">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">03 / Contact</span>
+            <span class="stitch-line" aria-hidden="true"></span>
+            <span class="eyebrow">Meitaki ma&rsquo;ata</span>
+          </div>
+
+          <div class="contact-card">
+            <span class="contact-motif-1" aria-hidden="true" data-motif="420" data-motif-color="var(--accent)" data-motif-accent="var(--accent-2)" data-motif-spin="true"></span>
+            <span class="contact-motif-2" aria-hidden="true" data-motif="320" data-motif-color="var(--accent-3)" data-motif-accent="var(--accent-2)"></span>
+
+            <div class="contact-grid">
+              <div class="contact-intro">
+                <p class="eyebrow" data-reveal>Kia Orana</p>
+                <h2 data-reveal data-reveal-delay="1">
+                  Let&rsquo;s make <em>something</em> beautiful.
+                </h2>
+                <p data-reveal data-reveal-delay="2">
+                  The door is open for collabs, mentoring, or coffee. I&rsquo;m especially keen to hear from other Pacific
+                  folks finding their way in tech.
+                </p>
+              </div>
+
+              <ul class="contact-links" data-reveal-group>
+                <li data-reveal data-reveal-delay="1">
+                  <a href="mailto:kia.orana@inano.dev" class="contact-link">
+                    <div>
+                      <p class="eyebrow">Email</p>
+                      <p class="contact-link-value">kia.orana@inano.dev</p>
+                      <p class="contact-link-hint">Best for longer messages</p>
+                    </div>
+                    <span class="contact-link-arrow" aria-hidden="true">↗</span>
+                  </a>
+                </li>
+                <li data-reveal data-reveal-delay="2">
+                  <a href="https://www.linkedin.com/in/inano-knowles" target="_blank" rel="noreferrer" class="contact-link">
+                    <div>
+                      <p class="eyebrow">LinkedIn</p>
+                      <p class="contact-link-value">in/inano-knowles</p>
+                      <p class="contact-link-hint">For the pros</p>
+                    </div>
+                    <span class="contact-link-arrow" aria-hidden="true">↗</span>
+                  </a>
+                </li>
+                <li data-reveal data-reveal-delay="3">
+                  <a href="https://github.com/inanoknowles" target="_blank" rel="noreferrer" class="contact-link">
+                    <div>
+                      <p class="eyebrow">GitHub</p>
+                      <p class="contact-link-value">@inanoknowles</p>
+                      <p class="contact-link-hint">Where I think out loud</p>
+                    </div>
+                    <span class="contact-link-arrow" aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Functional Formspree contact form -->
+            <div class="contact-form-wrap">
+              <div class="contact-form-head" data-reveal>
+                <h3>Or send a message</h3>
+                <p>Stays on this tab — I&rsquo;ll read it on the next coffee.</p>
+              </div>
+
+              <form
+                id="contact-form"
+                class="contact-form"
+                action="https://formspree.io/f/https://formspree.io/f/mvzdwywa"
+                method="POST"
+                novalidate
+              >
+                <div class="field">
+                  <label for="field-name">Your name</label>
+                  <input id="field-name" name="name" type="text" autocomplete="name" required placeholder="Aroha" />
+                </div>
+                <div class="field">
+                  <label for="field-email">Email</label>
+                  <input id="field-email" name="email" type="email" autocomplete="email" required placeholder="you@domain.com" />
+                </div>
+                <div class="field field--full">
+                  <label for="field-subject">Subject</label>
+                  <input id="field-subject" name="subject" type="text" placeholder="Coffee, collab, or coding?" />
+                </div>
+                <div class="field field--full">
+                  <label for="field-message">Message</label>
+                  <textarea id="field-message" name="message" rows="5" required placeholder="Kia orana! I saw your work and…"></textarea>
+                </div>
+                <!-- Honeypot — humans skip this; bots fill it. -->
+                <div class="field field--honeypot" aria-hidden="true">
+                  <label for="field-website">Leave this field empty</label>
+                  <input id="field-website" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+                </div>
+
+                <div class="contact-form-actions">
+                  <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                  <button type="submit" class="btn btn-primary" id="form-submit">
+                    <span>Send message</span>
+                    <span class="btn-arrow" aria-hidden="true">→</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="contact-footer">
+              <p class="contact-footer-quote">Meitaki ma&rsquo;ata &middot; thank you &middot; made with aroa</p>
+              <p class="contact-footer-place">Based in Meanjin / Brisbane</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="site-footer-inner">
+          <p>
+            &copy; <span id="year">2026</span> Inano Knowles &middot;
+            <em>meitaki</em> for visiting
+          </p>
+          <p class="site-footer-right">Rarotonga → Meanjin &middot; stitched with aroa</p>
+        </div>
+      </footer>
+    </div>
   </main>
 
-  <footer class="footerArea">
-    <p>© 2025 Inano Knowles</p>
-  </footer>
+  <!-- Easter-egg: tivaevae bloom overlay -->
+  <div id="tivaevae-bloom" class="tivaevae-bloom" aria-hidden="true">
+    <span class="tivaevae-bloom-motif" data-motif="420" data-motif-color="var(--accent)" data-motif-accent="var(--accent-2)"></span>
+    <p class="tivaevae-bloom-caption">stitched with aroa</p>
+  </div>
+
+  <!-- Scripts — order matters. main.js wires everything up. -->
+  <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
