@@ -441,7 +441,7 @@
     fish_large_grouper:  { x: 69,   y: 406, w: 388, h: 128 },
     fish_large_shark:    { x: 514,  y: 406, w: 471, h: 128 },
     fish_large_ray:      { x: 1043, y: 406, w: 336, h: 128 },
-    jelly_cyan:          { x: 23,   y: 561, w: 182, h: 193 },
+    jelly_cyan:          { x: 100,  y: 561, w: 105, h: 193 },
     jelly_pink:          { x: 223,  y: 561, w: 133, h: 193 },
     jelly_blue:          { x: 411,  y: 561, w: 136, h: 193 },
     jelly_lavender:      { x: 584,  y: 561, w: 135, h: 193 },
@@ -482,7 +482,23 @@
     if (!spec || !sheetImg) return null;
     var cv = document.createElement('canvas');
     cv.width = spec.w; cv.height = spec.h;
-    cv.getContext('2d').drawImage(sheetImg, spec.x, spec.y, spec.w, spec.h, 0, 0, spec.w, spec.h);
+    var ctx = cv.getContext('2d');
+    ctx.drawImage(sheetImg, spec.x, spec.y, spec.w, spec.h, 0, 0, spec.w, spec.h);
+    // Remove the dark navy background so it doesn't create a visible box in-scene.
+    var id = ctx.getImageData(0, 0, spec.w, spec.h);
+    var d = id.data;
+    for (var i = 0; i < d.length; i += 4) {
+      var r = d[i], g = d[i + 1], b = d[i + 2];
+      var brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      var maxC = Math.max(r, g, b);
+      var saturation = maxC > 0 ? (maxC - Math.min(r, g, b)) / maxC : 0;
+      if (brightness < 28 && saturation < 0.45) {
+        d[i + 3] = 0;
+      } else if (brightness < 50 && saturation < 0.30) {
+        d[i + 3] = Math.round(d[i + 3] * (brightness - 28) / 22);
+      }
+    }
+    ctx.putImageData(id, 0, 0);
     var tex = PIXI.Texture.from(cv);
     _deepseaTexCache[name] = tex;
     return tex;
@@ -1003,7 +1019,7 @@
         s.y = h * 0.65 + Math.random() * h * 0.15;
         s.vx = (0.18 + Math.random() * 0.14) * (Math.random() < 0.5 ? 1 : -1);
         s.swimType = 'large'; s.bob = Math.random() * Math.PI * 2; s._bsc = sc;
-        if (s.vx < 0) s.scale.x = -sc;
+        if (s.vx > 0) s.scale.x = -sc;
         creatureLayer.addChild(s); creatureList.push(s);
       });
 
@@ -1015,7 +1031,7 @@
         s.y = h * 0.3 + Math.random() * h * 0.4;
         s.vx = (0.4 + Math.random() * 0.35) * (Math.random() < 0.5 ? 1 : -1);
         s.swimType = 'med'; s.bob = Math.random() * Math.PI * 2;
-        if (s.vx < 0) s.scale.x = -sc;
+        if (s.vx > 0) s.scale.x = -sc;
         creatureLayer.addChild(s); creatureList.push(s);
       });
 
@@ -1027,7 +1043,7 @@
         sf.y = h * 0.2 + Math.random() * h * 0.35;
         sf.vx = (0.6 + Math.random() * 0.5) * (Math.random() < 0.5 ? 1 : -1);
         sf.swimType = 'small'; sf.bob = Math.random() * Math.PI * 2;
-        if (sf.vx < 0) sf.scale.x = -sc2;
+        if (sf.vx > 0) sf.scale.x = -sc2;
         sf.eventMode = 'static'; sf.cursor = 'pointer';
         sf.hitArea = new PIXI.Rectangle(-sc2 * 60, -sc2 * 50, sc2 * 120, sc2 * 100);
         (function (s) {
@@ -1072,17 +1088,17 @@
       creatureList.forEach(function (s) {
         if (s.swimType === 'large') {
           s.bob += 0.008; s.x += s.vx; s.y += Math.sin(s.bob) * 0.15; s.vx *= 0.9995;
-          if (s._bsc) { s.scale.x = s.vx < 0 ? -s._bsc : s._bsc; }
+          if (s._bsc) { s.scale.x = s.vx < 0 ? s._bsc : -s._bsc; }
           if (s.vx > 0 && s.x > w + 300) { s.x = -300; s.y = h * 0.6 + Math.random() * h * 0.2; }
           if (s.vx < 0 && s.x < -300)    { s.x = w + 300; s.y = h * 0.6 + Math.random() * h * 0.2; }
         } else if (s.swimType === 'med') {
           s.bob += 0.015; s.x += s.vx; s.y += Math.sin(s.bob) * 0.25; s.vx *= 0.9998;
-          if (s._bsc) { s.scale.x = s.vx < 0 ? -s._bsc : s._bsc; }
+          if (s._bsc) { s.scale.x = s.vx < 0 ? s._bsc : -s._bsc; }
           if (s.vx > 0 && s.x > w + 200) { s.x = -200; s.y = h * 0.3 + Math.random() * h * 0.4; }
           if (s.vx < 0 && s.x < -200)    { s.x = w + 200; s.y = h * 0.3 + Math.random() * h * 0.4; }
         } else if (s.swimType === 'small') {
           s.bob += 0.025; s.x += s.vx; s.y += Math.sin(s.bob) * 0.3; s.vx *= 0.9997;
-          if (s._bsc) { s.scale.x = s.vx < 0 ? -s._bsc : s._bsc; }
+          if (s._bsc) { s.scale.x = s.vx < 0 ? s._bsc : -s._bsc; }
           if (s.vx > 0 && s.x > w + 100) { s.x = -100; s.y = h * 0.2 + Math.random() * h * 0.35; }
           if (s.vx < 0 && s.x < -100)    { s.x = w + 100; s.y = h * 0.2 + Math.random() * h * 0.35; }
         } else if (s.swimType === 'jelly') {

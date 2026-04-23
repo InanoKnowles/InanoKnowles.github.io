@@ -861,6 +861,9 @@ html[data-theme="dark"] .hero-title { text-shadow: 0 2px 16px rgba(3,23,40,0.8);
   z-index: 20;
   overflow: hidden;
 }
+.hero-trail-petal {
+  position: absolute;
+}
 
 /* --- Editorial canvas (post-hero sections) ---------------------------- */
 .editorial-canvas {
