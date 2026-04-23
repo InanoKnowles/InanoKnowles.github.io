@@ -824,18 +824,19 @@
     var W = function () { return app.screen.width; };
     var H = function () { return app.screen.height; };
 
-    // Water gradient
+    // Water gradient — teal at surface, deep blue below
     var water = new PIXI.Graphics();
     function drawWater() {
       water.clear();
       var w = W(), h = H();
-      var stops = [{ o: 0, c: 0x021022 }, { o: 0.5, c: 0x073e5f }, { o: 1, c: 0x02131f }];
+      var stops = [{ o: 0, c: 0x0e6a9e }, { o: 0.35, c: 0x0a4a7a }, { o: 0.7, c: 0x062d55 }, { o: 1, c: 0x021828 }];
       for (var i = 0; i < 64; i++) {
         var t = i / 63;
-        var lo = stops[0], hi = stops[2];
-        if (t < 0.5) { lo = stops[0]; hi = stops[1]; }
-        else { lo = stops[1]; hi = stops[2]; }
-        var lt = t < 0.5 ? t / 0.5 : (t - 0.5) / 0.5;
+        var lo = stops[0], hi = stops[stops.length - 1];
+        for (var j = 0; j < stops.length - 1; j++) {
+          if (t >= stops[j].o && t <= stops[j + 1].o) { lo = stops[j]; hi = stops[j + 1]; break; }
+        }
+        var lt = (t - lo.o) / Math.max(0.0001, hi.o - lo.o);
         var r = Math.round(((lo.c >> 16) & 0xff) * (1 - lt) + ((hi.c >> 16) & 0xff) * lt);
         var g = Math.round(((lo.c >> 8) & 0xff) * (1 - lt) + ((hi.c >> 8) & 0xff) * lt);
         var b = Math.round((lo.c & 0xff) * (1 - lt) + (hi.c & 0xff) * lt);
@@ -844,36 +845,75 @@
     }
     container.addChild(water);
 
-    // Moon halo
-    var moon = new PIXI.Graphics();
-    function drawMoon() {
-      moon.clear();
-      var x = W() * 0.25, y = H() * 0.2;
-      for (var r = 130; r > 0; r -= 14) moon.circle(x, y, r).fill({ color: 0x9ccbe8, alpha: 0.05 });
-      moon.circle(x, y, 40).fill({ color: 0xe0eef8, alpha: 0.9 });
-      moon.circle(x + 8, y - 4, 34).fill({ color: 0x021022, alpha: 0.2 });
+    // Surface light glow — bright light source at the water surface above
+    var surfaceLight = new PIXI.Graphics();
+    function drawSurfaceLight() {
+      surfaceLight.clear();
+      var w = W();
+      for (var r = 320; r > 0; r -= 30) {
+        surfaceLight.ellipse(w * 0.5, -10, r * 1.4, r * 0.6).fill({ color: 0x7ee8ff, alpha: 0.018 });
+      }
+      surfaceLight.ellipse(w * 0.5, -10, 180, 80).fill({ color: 0xb8f0ff, alpha: 0.04 });
     }
-    container.addChild(moon);
+    container.addChild(surfaceLight);
 
-    // God rays
+    // God rays — narrow at top, wide at bottom, clearly from water surface
     var rays = new PIXI.Graphics();
     function drawRays(t) {
       rays.clear();
       var w = W(), h = H();
-      for (var i = 0; i < 6; i++) {
-        var x = (i / 6) * w + Math.sin(t * 0.0004 + i) * 18;
-        rays.moveTo(x - 15, 0).lineTo(x + 15, 0).lineTo(x + 70, h * 0.7).lineTo(x - 70, h * 0.7)
-          .closePath().fill({ color: 0xa5d4ec, alpha: 0.04 });
+      for (var i = 0; i < 8; i++) {
+        var cx = (i / 8) * w + w / 16 + Math.sin(t * 0.0003 + i * 1.1) * 22;
+        var topW = 6 + i % 3 * 4;
+        var botW = 55 + i % 3 * 15;
+        rays.moveTo(cx - topW, 0).lineTo(cx + topW, 0)
+            .lineTo(cx + botW, h * 0.82).lineTo(cx - botW, h * 0.82)
+            .closePath().fill({ color: 0x9ee8ff, alpha: 0.045 + Math.sin(t * 0.0005 + i) * 0.015 });
       }
     }
     container.addChild(rays);
+
+    // Caustic light — animated dappled light patches, signature underwater look
+    var caustics = new PIXI.Graphics();
+    function drawCaustics(t) {
+      caustics.clear();
+      var w = W(), h = H();
+      for (var i = 0; i < 10; i++) {
+        var cx = ((i / 10) * w + Math.sin(t * 0.0007 + i * 1.4) * 50 + w) % w;
+        var cy = h * 0.55 + Math.cos(t * 0.0009 + i * 0.8) * h * 0.12;
+        var rx = 28 + Math.sin(t * 0.0011 + i) * 12;
+        caustics.ellipse(cx, cy, rx, rx * 0.35).fill({ color: 0x7ee8ff, alpha: 0.055 + Math.sin(t * 0.0013 + i) * 0.025 });
+      }
+    }
+    container.addChild(caustics);
+
+    // Water surface line — wavy bright band at very top, drawn over everything
+    var surfaceLine = new PIXI.Graphics();
+    function drawSurfaceLine(t) {
+      surfaceLine.clear();
+      var w = W();
+      surfaceLine.moveTo(-10, 0);
+      for (var i = 0; i <= 50; i++) {
+        var px = (i / 50) * w;
+        var py = 6 + Math.sin(i * 0.38 + t * 0.0022) * 5 + Math.sin(i * 0.62 + t * 0.0015) * 3;
+        surfaceLine.lineTo(px, py);
+      }
+      surfaceLine.lineTo(w + 10, 0).closePath().fill({ color: 0x4dd4f0, alpha: 0.45 });
+      surfaceLine.moveTo(-10, 0);
+      for (var j = 0; j <= 50; j++) {
+        var px2 = (j / 50) * w;
+        var py2 = 14 + Math.sin(j * 0.44 + t * 0.0018) * 4 + Math.sin(j * 0.7 + t * 0.0012) * 2;
+        surfaceLine.lineTo(px2, py2);
+      }
+      surfaceLine.lineTo(w + 10, 0).closePath().fill({ color: 0x9ef0ff, alpha: 0.15 });
+    }
 
     // Coral floor
     var coral = new PIXI.Graphics();
     function drawCoral() {
       coral.clear();
       var w = W(), h = H(), baseY = h * 0.96;
-      coral.rect(0, baseY, w, h - baseY).fill(0x0a2942);
+      coral.rect(0, baseY, w, h - baseY).fill(0x062d55);
       for (var x = -20; x < w + 20; x += 18) {
         var hB = 8 + ((x * 37) % 14);
         coral.moveTo(x, baseY).bezierCurveTo(x + 6, baseY - hB, x + 12, baseY - hB, x + 18, baseY)
@@ -1011,7 +1051,12 @@
       });
     }
 
-    function layout() { drawWater(); drawMoon(); drawCoral(); buildSeaweed(); buildCreatures(); }
+    container.addChild(surfaceLine);
+
+    function layout() {
+      drawWater(); drawSurfaceLight(); drawCoral(); buildSeaweed(); buildCreatures();
+      surfaceLine.clear(); // redrawn in tick
+    }
     layout();
 
     var onResize = function () { layout(); };
@@ -1022,7 +1067,7 @@
       if (!container.visible) return;
       var t = performance.now() - _t0;
       var w = W(), h = H();
-      drawRays(t); drawSeaweed(t);
+      drawRays(t); drawCaustics(t); drawSeaweed(t); drawSurfaceLine(t);
 
       creatureList.forEach(function (s) {
         if (s.swimType === 'large') {
@@ -1096,7 +1141,7 @@
       antialias: true,
       autoDensity: true,
       preference: 'webgl',
-      resolution: 1
+      resolution: Math.min(window.devicePixelRatio || 1, 2)
     }).then(function () {
       var canvas = app.canvas;
       canvas.style.cssText = 'display:block;width:100%;height:100%;position:absolute;inset:0;';
@@ -1115,7 +1160,7 @@
         var theme = root.getAttribute('data-theme') || 'light';
         islandScene.container.visible    = (theme === 'light');
         underwaterScene.container.visible = (theme === 'dark');
-        app.renderer.background.color = theme === 'dark' ? 0x021022 : 0xffd4a3;
+        app.renderer.background.color = theme === 'dark' ? 0x0e6a9e : 0xffd4a3;
       }
       syncVisibility();
       new MutationObserver(syncVisibility).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
