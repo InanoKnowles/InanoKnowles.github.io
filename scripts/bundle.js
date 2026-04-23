@@ -16,6 +16,15 @@
     return function (i) { return start + i * interval; };
   }
 
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
   function animate(targets, props, opts) {
     var els;
     if (targets instanceof Element) {
@@ -681,25 +690,26 @@
     function buildBirds() {
       birdLayer.removeChildren(); birdSprites.length = 0;
       if (!birdImg) return;
-      var count = Math.max(3, Math.round(W() / 350));
-      for (var i = 0; i < count; i++) {
-        var name = FLY_NAMES[i % FLY_NAMES.length];
+      var pool = shuffle(FLY_NAMES).slice(0, 3 + Math.floor(Math.random() * 2)); // 3–4 birds
+      pool.forEach(function (name, i) {
         var tex = cropBirdTexture(PIXI, birdImg, name);
-        if (!tex) continue;
+        if (!tex) return;
         var b = new PIXI.Sprite(tex);
         b.anchor.set(0.5, 0.5);
         var targetH = H() * (0.10 + (i % 3) * 0.02);
         var baseScale = targetH / BIRDS[name].h;
         b.scale.set(baseScale);
-        b._baseScaleX = baseScale;
+        b._bsc = baseScale;
         b.alpha = 0.82 + Math.random() * 0.12;
         b.x = Math.random() * W();
         b.y = H() * (0.06 + Math.random() * 0.32);
         b.vx = (0.35 + Math.random() * 0.45) * (Math.random() < 0.5 ? 1 : -1);
         b.bob = Math.random() * Math.PI * 2;
-        if (b.vx < 0) b.scale.x = -b._baseScaleX;
+        b._flapPhase = Math.random() * Math.PI * 2;
+        b._flapRate = 0.14 + Math.random() * 0.08;
+        if (b.vx < 0) b.scale.x = -b._bsc;
         birdLayer.addChild(b); birdSprites.push(b);
-      }
+      });
     }
 
     // ---- Perched birds on palm tops ----------------------------------------
@@ -776,13 +786,17 @@
         if (s.x > W() + 300) s.x = -300;
       });
 
-      // Flying birds
+      // Flying birds — flap scale.y, direction always matches head
       birdSprites.forEach(function (b) {
-        b.bob += 0.025; b.x += b.vx;
+        b.bob += 0.025;
+        b._flapPhase += b._flapRate;
+        b.x += b.vx;
         b.y += Math.sin(b.bob) * 0.55;
-        b.scale.x = b.vx < 0 ? -b._baseScaleX : b._baseScaleX;
-        if (b.vx > 0 && b.x > W() + 250) { b.x = -250; b.y = H() * (0.06 + Math.random() * 0.32); }
-        if (b.vx < 0 && b.x < -250)      { b.x = W() + 250; b.y = H() * (0.06 + Math.random() * 0.32); }
+        var flapY = 1 + Math.sin(b._flapPhase) * 0.2;
+        b.scale.x = b.vx < 0 ? -b._bsc : b._bsc;
+        b.scale.y = b._bsc * flapY;
+        if (b.vx > 0 && b.x > W() + 250) { b.x = -250; b.y = H() * (0.06 + Math.random() * 0.32); b._flapPhase = Math.random() * Math.PI * 2; }
+        if (b.vx < 0 && b.x < -250)      { b.x = W() + 250; b.y = H() * (0.06 + Math.random() * 0.32); b._flapPhase = Math.random() * Math.PI * 2; }
       });
 
       // Palm sway
@@ -935,11 +949,17 @@
       if (!sheetImg) return;
       var w = W(), h = H();
 
-      LARGE_NAMES.forEach(function (name, idx) {
+      // Random subsets — avoids crowding
+      var pickedLarge = shuffle(LARGE_NAMES).slice(0, 1 + Math.floor(Math.random() * 2));
+      var pickedMed   = shuffle(MED_NAMES).slice(0, 2 + Math.floor(Math.random() * 3));
+      var pickedSmall = shuffle(SMALL_NAMES).slice(0, 4 + Math.floor(Math.random() * 3));
+      var pickedJelly = shuffle(JELLY_NAMES).slice(0, 2 + Math.floor(Math.random() * 3));
+
+      pickedLarge.forEach(function (name, idx) {
         var tex = cropDeepseaTexture(PIXI, sheetImg, name); if (!tex) return;
         var s = new PIXI.Sprite(tex); s.blendMode = 'screen'; s.anchor.set(0.5, 0.5); s.alpha = 0.5;
         var sc = (h * 0.16) / CREATURES[name].h; s.scale.set(sc);
-        s.x = (idx / LARGE_NAMES.length) * w + Math.random() * 200;
+        s.x = (idx / pickedLarge.length) * w + Math.random() * 200;
         s.y = h * 0.65 + Math.random() * h * 0.15;
         s.vx = (0.18 + Math.random() * 0.14) * (Math.random() < 0.5 ? 1 : -1);
         s.swimType = 'large'; s.bob = Math.random() * Math.PI * 2; s._bsc = sc;
@@ -947,24 +967,24 @@
         creatureLayer.addChild(s); creatureList.push(s);
       });
 
-      MED_NAMES.forEach(function (name) {
+      pickedMed.forEach(function (name, idx) {
         var tex = cropDeepseaTexture(PIXI, sheetImg, name); if (!tex) return;
         var s = new PIXI.Sprite(tex); s.blendMode = 'screen'; s.anchor.set(0.5, 0.5); s.alpha = 0.75;
         var sc = (h * 0.10) / CREATURES[name].h; s.scale.set(sc); s._bsc = sc;
-        s.x = Math.random() * w; s.y = h * 0.3 + Math.random() * h * 0.4;
+        s.x = (idx / pickedMed.length) * w + Math.random() * 160;
+        s.y = h * 0.3 + Math.random() * h * 0.4;
         s.vx = (0.4 + Math.random() * 0.35) * (Math.random() < 0.5 ? 1 : -1);
         s.swimType = 'med'; s.bob = Math.random() * Math.PI * 2;
         if (s.vx < 0) s.scale.x = -sc;
         creatureLayer.addChild(s); creatureList.push(s);
       });
 
-      var smallCount = Math.max(7, Math.round(w / 200));
-      for (var si = 0; si < smallCount; si++) {
-        var sName = SMALL_NAMES[si % SMALL_NAMES.length];
-        var tex2 = cropDeepseaTexture(PIXI, sheetImg, sName); if (!tex2) continue;
+      pickedSmall.forEach(function (name, idx) {
+        var tex2 = cropDeepseaTexture(PIXI, sheetImg, name); if (!tex2) return;
         var sf = new PIXI.Sprite(tex2); sf.blendMode = 'screen'; sf.anchor.set(0.5, 0.5); sf.alpha = 0.85;
-        var sc2 = (h * 0.055) / CREATURES[sName].h; sf.scale.set(sc2); sf._bsc = sc2;
-        sf.x = Math.random() * w; sf.y = h * 0.2 + Math.random() * h * 0.35;
+        var sc2 = (h * 0.055) / CREATURES[name].h; sf.scale.set(sc2); sf._bsc = sc2;
+        sf.x = (idx / pickedSmall.length) * w + Math.random() * 120;
+        sf.y = h * 0.2 + Math.random() * h * 0.35;
         sf.vx = (0.6 + Math.random() * 0.5) * (Math.random() < 0.5 ? 1 : -1);
         sf.swimType = 'small'; sf.bob = Math.random() * Math.PI * 2;
         if (sf.vx < 0) sf.scale.x = -sc2;
@@ -977,13 +997,13 @@
           });
         }(sf));
         creatureLayer.addChild(sf); creatureList.push(sf);
-      }
+      });
 
-      JELLY_NAMES.forEach(function (name, idx) {
+      pickedJelly.forEach(function (name, idx) {
         var tex3 = cropDeepseaTexture(PIXI, sheetImg, name); if (!tex3) return;
         var jf = new PIXI.Sprite(tex3); jf.blendMode = 'screen'; jf.anchor.set(0.5, 0.5); jf.alpha = 0.65;
         var sc3 = (h * 0.14) / CREATURES[name].h; jf.scale.set(sc3); jf._bsc = sc3;
-        jf.x = (idx / JELLY_NAMES.length) * w + Math.random() * (w / JELLY_NAMES.length);
+        jf.x = (idx / pickedJelly.length) * w + Math.random() * (w / pickedJelly.length);
         jf.y = h * 0.4 + Math.random() * h * 0.5;
         jf.vy = 0.25 + Math.random() * 0.2; jf.sway = Math.random() * Math.PI * 2;
         jf.swimType = 'jelly'; jf._pulse = Math.random() * Math.PI * 2;
