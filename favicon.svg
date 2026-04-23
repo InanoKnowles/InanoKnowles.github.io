@@ -1,6 +1,134 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <circle cx="16" cy="16" r="16" fill="#d9412a"/>
-  <circle cx="16" cy="16" r="10" fill="#eac57c"/>
-  <circle cx="16" cy="16" r="5" fill="#1f86a0"/>
-  <circle cx="16" cy="16" r="2.5" fill="#fffaf1"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Deep green background gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#2d6a35"/>
+      <stop offset="100%" stop-color="#0e2e14"/>
+    </radialGradient>
+
+    <!-- Petal gradient - pure white with soft shadow base -->
+    <radialGradient id="petalGrad" cx="50%" cy="90%" r="75%" fx="50%" fy="95%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#f0f4f0"/>
+      <stop offset="100%" stop-color="#c8d8cc"/>
+    </radialGradient>
+
+    <!-- Petal highlight -->
+    <radialGradient id="petalShine" cx="38%" cy="25%" r="45%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Centre gradient - warm golden ivory -->
+    <radialGradient id="centreGrad" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fff5cc"/>
+      <stop offset="50%" stop-color="#f0c040"/>
+      <stop offset="100%" stop-color="#c07808"/>
+    </radialGradient>
+
+    <!-- Water droplet gradient -->
+    <radialGradient id="dropGrad" cx="35%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#d8eee0" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#a0c8b0" stop-opacity="0.3"/>
+    </radialGradient>
+
+    <filter id="petalShadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#2a5a30" flood-opacity="0.4"/>
+    </filter>
+    <filter id="centreShadow">
+      <feDropShadow dx="0" dy="0.5" stdDeviation="1" flood-color="#805010" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="49" fill="url(#bgGrad)"/>
+
+  <!-- Subtle leaf hints in background -->
+  <ellipse cx="18" cy="28" rx="14" ry="8" fill="#1e5228" opacity="0.6" transform="rotate(-30,18,28)"/>
+  <ellipse cx="82" cy="28" rx="14" ry="8" fill="#1e5228" opacity="0.6" transform="rotate(30,82,28)"/>
+  <ellipse cx="15" cy="68" rx="13" ry="7" fill="#1e5228" opacity="0.5" transform="rotate(20,15,68)"/>
+  <ellipse cx="85" cy="68" rx="13" ry="7" fill="#1e5228" opacity="0.5" transform="rotate(-20,85,68)"/>
+
+  <!-- === 7 TIARE PETALS === -->
+  <!-- Each petal: long oval, slightly pointed tip, rounded base -->
+
+  <!-- Petal 1 -->
+  <g transform="translate(50,50) rotate(0)">
+    <path d="M0,0 C-9,-6 -11,-22 -7,-36 C-4,-46 4,-46 7,-36 C11,-22 9,-6 0,0Z"
+          fill="url(#petalGrad)" filter="url(#petalShadow)"/>
+    <path d="M-3,-8 C-5,-16 -5,-28 -3,-36 C-1,-28 -1,-16 -3,-8Z"
+          fill="url(#petalShine)" opacity="0.7"/>
+  </g>
+
+  <!-- Petal 2 -->
+  <g transform="translate(50,50) rotate(51.4)">
+    <path d="M0,0 C-9,-6 -11,-22 -7,-36 C-4,-46 4,-46 7,-36 C11,-22 9,-6 0,0Z"
+          fill="url(#petalGrad)" filter="url(#petalShadow)"/>
+    <path d="M-3,-8 C-5,-16 -5,-28 -3,-36 C-1,-28 -1,-16 -3,-8Z"
+          fill="url(#petalShine)" opacity="0.7"/>
+  </g>
+
+  <!-- Petal 3 -->
+  <g transform="translate(50,50) rotate(102.8)">
+    <path d="M0,0 C-9,-6 -11,-22 -7,-36 C-4,-46 4,-46 7,-36 C11,-22 9,-6 0,0Z"
+          fill="url(#petalGrad)" filter="url(#petalShadow)"/>
+    <path d="M-3,-8 C-5,-16 -5,-28 -3,-36 C-1,-28 -1,-16 -3,-8Z"
+          fill="url(#petalShine)" opacity="0.7"/>
+  </g>
+
+  <!-- Petal 4 -->
+  <g transform="translate(50,50) rotate(154.2)">
+    <path d="M0,0 C-9,-6 -11,-22 -7,-36 C-4,-46 4,-46 7,-36 C11,-22 9,-6 0,0Z"
+          fill="url(#petalGrad)" filter="url(#petalShadow)"/>
+    <path d="M-3,-8 C-5,-16 -5,-28 -3,-36 C-1,-28 -1,-16 -3,-8Z"
+          fill="url(#petalShine)" opacity="0.7"/>
+  </g>
+
+  <!-- Petal 5 -->
+  <g transform="translate(50,50) rotate(205.6)">
+    <path d="M0,0 C-9,-6 -11,-22 -7,-36 C-4,-46 4,-46 7,-36 C11,-22 9,-6 0,0Z"
+          fill="url(#petalGrad)" filter="url(#petalShadow)"/>
+    <path d="M-3,-8 C-5,-16 -5,-28 -3,-36 C-1,-28 -1,-16 -3,-8Z"
+          fill="url(#petalShine)" opacity="0.7"/>
+  </g>
+
+  <!-- Petal 6 -->
+  <g transform="translate(50,50) rotate(257)">
+    <path d="M0,0 C-9,-6 -11,-22 -7,-36 C-4,-46 4,-46 7,-36 C11,-22 9,-6 0,0Z"
+          fill="url(#petalGrad)" filter="url(#petalShadow)"/>
+    <path d="M-3,-8 C-5,-16 -5,-28 -3,-36 C-1,-28 -1,-16 -3,-8Z"
+          fill="url(#petalShine)" opacity="0.7"/>
+  </g>
+
+  <!-- Petal 7 -->
+  <g transform="translate(50,50) rotate(308.6)">
+    <path d="M0,0 C-9,-6 -11,-22 -7,-36 C-4,-46 4,-46 7,-36 C11,-22 9,-6 0,0Z"
+          fill="url(#petalGrad)" filter="url(#petalShadow)"/>
+    <path d="M-3,-8 C-5,-16 -5,-28 -3,-36 C-1,-28 -1,-16 -3,-8Z"
+          fill="url(#petalShine)" opacity="0.7"/>
+  </g>
+
+  <!-- Centre disk -->
+  <circle cx="50" cy="50" r="9" fill="url(#centreGrad)" filter="url(#centreShadow)"/>
+  <circle cx="50" cy="50" r="5.5" fill="#e8a820"/>
+  <circle cx="50" cy="50" r="3" fill="#c07010"/>
+  <!-- Centre highlight -->
+  <ellipse cx="47.5" cy="47.5" rx="2.5" ry="1.8" fill="white" opacity="0.35"/>
+
+  <!-- Water droplets on petals -->
+  <!-- Drop on petal 1 -->
+  <ellipse cx="50" cy="24" rx="2.2" ry="1.4" fill="url(#dropGrad)" opacity="0.85"/>
+  <ellipse cx="49.2" cy="23.4" rx="0.9" ry="0.6" fill="white" opacity="0.9"/>
+
+  <!-- Drop on petal 3 -->
+  <ellipse cx="29" cy="38" rx="1.8" ry="1.2" fill="url(#dropGrad)" opacity="0.8" transform="rotate(102.8,29,38)"/>
+
+  <!-- Drop on petal 5 -->
+  <ellipse cx="35" cy="72" rx="1.6" ry="1.1" fill="url(#dropGrad)" opacity="0.75"/>
+  <ellipse cx="34.5" cy="71.6" rx="0.7" ry="0.5" fill="white" opacity="0.9"/>
+
+  <!-- Drop on petal 7 -->
+  <ellipse cx="66" cy="30" rx="1.5" ry="1" fill="url(#dropGrad)" opacity="0.8"/>
+  <ellipse cx="65.5" cy="29.6" rx="0.6" ry="0.4" fill="white" opacity="0.9"/>
 </svg>
