@@ -518,8 +518,8 @@
     var container = new PIXI.Container();
     container.eventMode = 'static';
 
-    var W = function () { return app.renderer.width / app.renderer.resolution; };
-    var H = function () { return app.renderer.height / app.renderer.resolution; };
+    var W = function () { return app.screen.width; };
+    var H = function () { return app.screen.height; };
 
     // Sky gradient
     var sky = new PIXI.Graphics();
@@ -807,8 +807,8 @@
     var container = new PIXI.Container();
     container.eventMode = 'static';
 
-    var W = function () { return app.renderer.width / app.renderer.resolution; };
-    var H = function () { return app.renderer.height / app.renderer.resolution; };
+    var W = function () { return app.screen.width; };
+    var H = function () { return app.screen.height; };
 
     // Water gradient
     var water = new PIXI.Graphics();
@@ -1076,7 +1076,7 @@
       antialias: true,
       autoDensity: true,
       preference: 'webgl',
-      resolution: Math.min(window.devicePixelRatio || 1, 2)
+      resolution: 1
     }).then(function () {
       var canvas = app.canvas;
       canvas.style.cssText = 'display:block;width:100%;height:100%;position:absolute;inset:0;';
