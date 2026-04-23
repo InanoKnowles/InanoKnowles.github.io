@@ -147,6 +147,26 @@ html[data-theme="dark"] ::selection { background: var(--accent-2); color: var(--
 
 main { position: relative; z-index: 1; }
 
+/* Skip link — visually hidden until focused */
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.625rem 1.25rem;
+  background: var(--ink);
+  color: var(--surface);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* Prevent scroll when mobile menu is open */
+body.no-scroll { overflow: hidden; }
+
 /* --- Typography utilities --------------------------------------------- */
 .font-display {
   font-family: var(--font-display);
