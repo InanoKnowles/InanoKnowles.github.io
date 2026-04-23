@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Lost at sea — Inano Knowles</title>
   <meta name="description" content="404 — this page drifted off the reef. Paddle back home or send up a flare." />
   <meta name="theme-color" content="#fffaf1" media="(prefers-color-scheme: light)" />
@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
   <link rel="stylesheet" href="styles/main.css" />
 
@@ -26,6 +29,7 @@
   </script>
 </head>
 <body class="noscript-reveal">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <noscript>
     <style>[data-reveal]{opacity:1 !important;transform:none !important;}</style>
   </noscript>
@@ -106,18 +110,18 @@
     </a>
   </div>
 
-  <main>
+  <main id="main-content">
     <div class="editorial-canvas">
-      <section class="section not-found-section">
-        <span class="not-found-motif not-found-motif--tl" aria-hidden="true" data-motif="340" data-motif-color="var(--accent)" data-motif-accent="var(--accent-2)"></span>
-        <span class="not-found-motif not-found-motif--br" aria-hidden="true" data-motif="300" data-motif-color="var(--accent-3)" data-motif-accent="var(--accent-warm)"></span>
+      <section class="not-found">
+        <span class="not-found-motif not-found-motif-left" aria-hidden="true" data-motif="340" data-motif-color="var(--accent)" data-motif-accent="var(--accent-2)"></span>
+        <span class="not-found-motif not-found-motif-right" aria-hidden="true" data-motif="300" data-motif-color="var(--accent-3)" data-motif-accent="var(--accent-warm)"></span>
 
         <div class="container not-found-inner">
           <span class="eyebrow not-found-eyebrow" data-reveal>404 &middot; lost at sea</span>
           <h1 class="not-found-title" data-reveal data-reveal-delay="1">
             This page drifted <em>off the reef</em>.
           </h1>
-          <p class="not-found-lede" data-reveal data-reveal-delay="2">
+          <p class="not-found-body" data-reveal data-reveal-delay="2">
             A coconut crab borrowed the link, the easterly wind took the rest.
             Nothing&rsquo;s broken — you&rsquo;re just somewhere the map doesn&rsquo;t
             quite reach yet.
@@ -130,7 +134,7 @@
     ¯¯ ¯¯
           </pre>
 
-          <div class="not-found-ctas" data-reveal data-reveal-delay="4">
+          <div class="not-found-actions" data-reveal data-reveal-delay="4">
             <a class="btn btn-primary" href="index.html">
               <span class="btn-arrow" aria-hidden="true">←</span>
               <span>Paddle back home</span>

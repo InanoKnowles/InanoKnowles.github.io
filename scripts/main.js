@@ -162,7 +162,7 @@ function applyTheme(next, origin) {
   const current = root.getAttribute("data-theme") || "light";
   if (current === next) return;
 
-  if (prefersReducedMotion || !origin || !document.startViewTransition === false) {
+  if (prefersReducedMotion || !origin) {
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("inano-theme", next); } catch (e) {}
     return;
@@ -171,14 +171,8 @@ function applyTheme(next, origin) {
   // Ripple overlay from button centre
   const ripple = document.createElement("div");
   ripple.className = "theme-ripple";
-  const max = Math.hypot(
-    Math.max(origin.x, window.innerWidth - origin.x),
-    Math.max(origin.y, window.innerHeight - origin.y)
-  );
-  ripple.style.left = `${origin.x}px`;
-  ripple.style.top = `${origin.y}px`;
-  ripple.style.setProperty("--ripple-size", `${max * 2.2}px`);
-  ripple.style.setProperty("--ripple-color", next === "dark" ? "#031728" : "#fffaf1");
+  ripple.style.setProperty("--tr-x", `${origin.x}px`);
+  ripple.style.setProperty("--tr-y", `${origin.y}px`);
   document.body.appendChild(ripple);
 
   requestAnimationFrame(() => {
@@ -276,7 +270,7 @@ if (form && formStatus && formSubmit) {
     }
 
     formStatus.textContent = "Paddling your note across…";
-    formStatus.dataset.state = "pending";
+    formStatus.dataset.state = "sending";
     formSubmit.disabled = true;
 
     try {
@@ -353,15 +347,18 @@ if (wordmark) {
 })();
 
 // --- Hibiscus cursor trail (hero only) -----------------------------------
+// Listen on the hero section (heroTrail has pointer-events:none to avoid
+// blocking hero buttons, so we attach to the parent section instead).
 const heroTrail = document.getElementById("hero-trail");
-if (heroTrail && !prefersReducedMotion) {
+const heroSection = document.querySelector(".hero");
+if (heroTrail && heroSection && !prefersReducedMotion) {
   let lastSpawn = 0;
   const SPAWN_MS = 70;
   const palette = ["#d9412a", "#eac57c", "#1f86a0", "#f26142"];
   const petalSvg = (color) =>
     `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2C9 6 6 7 4 11c-2 4 2 9 8 9s10-5 8-9c-2-4-5-5-8-9z" fill="${color}" fill-opacity="0.85"/><circle cx="12" cy="13" r="2" fill="#fffaf1"/></svg>`;
 
-  heroTrail.addEventListener("pointermove", (e) => {
+  heroSection.addEventListener("pointermove", (e) => {
     const now = performance.now();
     if (now - lastSpawn < SPAWN_MS) return;
     lastSpawn = now;
