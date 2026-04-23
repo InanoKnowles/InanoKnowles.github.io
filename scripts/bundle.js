@@ -390,20 +390,29 @@
       if (now - _lastSpawn < 70) return;
       _lastSpawn = now;
       var rect = heroTrail.getBoundingClientRect();
+      if (!rect || rect.width === 0) return;
+      var baseX = e.clientX - rect.left;
+      var baseY = e.clientY - rect.top;
+      var dx = (Math.random() - 0.5) * 80;
+      var dy = 60 + Math.random() * 40;
+      var rot = (Math.random() - 0.5) * 180;
       var petal = document.createElement('span');
       petal.className = 'hero-trail-petal';
-      petal.style.left = (e.clientX - rect.left) + 'px';
-      petal.style.top  = (e.clientY - rect.top) + 'px';
+      // Apply the starting transform inline BEFORE append so the first
+      // paint is already at the cursor — not at (0,0).
+      petal.style.transform = 'translate(' + baseX + 'px,' + baseY + 'px) rotate(0deg) scale(0.6)';
+      petal.style.opacity = '0.95';
+      petal.style.willChange = 'transform, opacity';
       petal.innerHTML = petalSvg(palette[Math.floor(Math.random() * palette.length)]);
       heroTrail.appendChild(petal);
-      animate(petal, {
-        x: [0, (Math.random() - 0.5) * 80],
-        y: [0, 60 + Math.random() * 40],
-        rotate: [0, (Math.random() - 0.5) * 180],
-        opacity: [0.95, 0],
-        scale: [0.6, 1]
-      }, { duration: 1.1, easing: 'ease-out' })
-        .finished.then(function () { petal.remove(); }).catch(function () { petal.remove(); });
+      var anim = petal.animate(
+        [
+          { transform: 'translate(' + baseX + 'px,' + baseY + 'px) rotate(0deg) scale(0.6)', opacity: 0.95 },
+          { transform: 'translate(' + (baseX + dx) + 'px,' + (baseY + dy) + 'px) rotate(' + rot + 'deg) scale(1)', opacity: 0 }
+        ],
+        { duration: 1100, easing: 'ease-out', fill: 'forwards' }
+      );
+      anim.finished.then(function () { petal.remove(); }).catch(function () { petal.remove(); });
     });
   }
 
@@ -480,24 +489,85 @@
     if (_deepseaTexCache[name]) return _deepseaTexCache[name];
     var spec = CREATURES[name];
     if (!spec || !sheetImg) return null;
+    var cw = spec.w, ch = spec.h;
     var cv = document.createElement('canvas');
-    cv.width = spec.w; cv.height = spec.h;
+    cv.width = cw; cv.height = ch;
     var ctx = cv.getContext('2d');
-    ctx.drawImage(sheetImg, spec.x, spec.y, spec.w, spec.h, 0, 0, spec.w, spec.h);
-    // Remove the dark navy background so it doesn't create a visible box in-scene.
-    var id = ctx.getImageData(0, 0, spec.w, spec.h);
+    ctx.drawImage(sheetImg, spec.x, spec.y, cw, ch, 0, 0, cw, ch);
+    var id = ctx.getImageData(0, 0, cw, ch);
     var d = id.data;
+
+    // Pass 1: aggressively remove the dark navy background. Navy on this
+    // sheet is rgb(~0, ~11, ~28) — dark but fully blue-saturated, so a
+    // saturation check incorrectly spares it. Use luminance alone.
     for (var i = 0; i < d.length; i += 4) {
       var r = d[i], g = d[i + 1], b = d[i + 2];
-      var brightness = (r * 299 + g * 587 + b * 114) / 1000;
-      var maxC = Math.max(r, g, b);
-      var saturation = maxC > 0 ? (maxC - Math.min(r, g, b)) / maxC : 0;
-      if (brightness < 28 && saturation < 0.45) {
+      var lum = (r * 299 + g * 587 + b * 114) / 1000;
+      if (lum < 70) {
         d[i + 3] = 0;
-      } else if (brightness < 50 && saturation < 0.30) {
-        d[i + 3] = Math.round(d[i + 3] * (brightness - 28) / 22);
+      } else if (lum < 95) {
+        d[i + 3] = Math.round(d[i + 3] * (lum - 70) / 25);
       }
     }
+
+    // Pass 2: connected-components cleanup. Labels printed on the sheet
+    // ("JELLYFISH & OTHER" etc.) survive navy removal as isolated bright
+    // patches. Flood-fill through high-alpha (>=128) pixels only so that
+    // anti-aliased edges don't bridge the sprite body to nearby labels;
+    // then zero out any component smaller than a meaningful fraction of
+    // the sprite body. Pixels not part of a kept component also get
+    // wiped so label text isn't preserved just because it's faint.
+    var total = cw * ch;
+    var compId = new Int32Array(total);
+    var queue = new Int32Array(total);
+    var sizes = [0];
+    var nextId = 1;
+    var coreAlpha = 140;
+    for (var p = 0; p < total; p++) {
+      if (compId[p] || d[p * 4 + 3] < coreAlpha) continue;
+      var head = 0, tail = 0;
+      queue[tail++] = p; compId[p] = nextId;
+      var sz = 0;
+      while (head < tail) {
+        var q = queue[head++]; sz++;
+        var qx = q % cw, qy = (q / cw) | 0;
+        if (qx > 0)      { var n1 = q - 1;  if (!compId[n1] && d[n1 * 4 + 3] >= coreAlpha) { compId[n1] = nextId; queue[tail++] = n1; } }
+        if (qx < cw - 1) { var n2 = q + 1;  if (!compId[n2] && d[n2 * 4 + 3] >= coreAlpha) { compId[n2] = nextId; queue[tail++] = n2; } }
+        if (qy > 0)      { var n3 = q - cw; if (!compId[n3] && d[n3 * 4 + 3] >= coreAlpha) { compId[n3] = nextId; queue[tail++] = n3; } }
+        if (qy < ch - 1) { var n4 = q + cw; if (!compId[n4] && d[n4 * 4 + 3] >= coreAlpha) { compId[n4] = nextId; queue[tail++] = n4; } }
+      }
+      sizes[nextId++] = sz;
+    }
+    var maxSize = 0;
+    for (var s = 1; s < sizes.length; s++) if (sizes[s] > maxSize) maxSize = sizes[s];
+    // Keep components that are the sprite body (largest) or a meaningful
+    // fragment of it (e.g. a trailing tentacle). Labels are small.
+    var keepThreshold = Math.max(200, maxSize * 0.15);
+    // Build a keep-mask for dilation: core pixels whose component survives.
+    var keep = new Uint8Array(total);
+    for (var p2 = 0; p2 < total; p2++) {
+      var cid = compId[p2];
+      if (cid && sizes[cid] >= keepThreshold) keep[p2] = 1;
+    }
+    // Dilate the keep-mask by 2 px so the sprite's anti-aliased edges
+    // (which were below the core-alpha cutoff) are re-included. Label
+    // letters were not kept, so their nearby halo pixels are wiped too.
+    var dilated = new Uint8Array(total);
+    var radius = 2;
+    for (var y = 0; y < ch; y++) {
+      for (var x = 0; x < cw; x++) {
+        if (!keep[y * cw + x]) continue;
+        var y0 = Math.max(0, y - radius), y1 = Math.min(ch - 1, y + radius);
+        var x0 = Math.max(0, x - radius), x1 = Math.min(cw - 1, x + radius);
+        for (var yy = y0; yy <= y1; yy++) {
+          for (var xx = x0; xx <= x1; xx++) dilated[yy * cw + xx] = 1;
+        }
+      }
+    }
+    for (var p3 = 0; p3 < total; p3++) {
+      if (!dilated[p3]) d[p3 * 4 + 3] = 0;
+    }
+
     ctx.putImageData(id, 0, 0);
     var tex = PIXI.Texture.from(cv);
     _deepseaTexCache[name] = tex;
@@ -1013,37 +1083,37 @@
 
       pickedLarge.forEach(function (name, idx) {
         var tex = cropDeepseaTexture(PIXI, sheetImg, name); if (!tex) return;
-        var s = new PIXI.Sprite(tex); s.blendMode = 'screen'; s.anchor.set(0.5, 0.5); s.alpha = 0.5;
+        var s = new PIXI.Sprite(tex); s.anchor.set(0.5, 0.5); s.alpha = 0.75;
         var sc = (h * 0.16) / CREATURES[name].h; s.scale.set(sc);
         s.x = (idx / pickedLarge.length) * w + Math.random() * 200;
         s.y = h * 0.65 + Math.random() * h * 0.15;
         s.vx = (0.18 + Math.random() * 0.14) * (Math.random() < 0.5 ? 1 : -1);
         s.swimType = 'large'; s.bob = Math.random() * Math.PI * 2; s._bsc = sc;
-        if (s.vx > 0) s.scale.x = -sc;
+        if (s.vx < 0) s.scale.x = -sc;
         creatureLayer.addChild(s); creatureList.push(s);
       });
 
       pickedMed.forEach(function (name, idx) {
         var tex = cropDeepseaTexture(PIXI, sheetImg, name); if (!tex) return;
-        var s = new PIXI.Sprite(tex); s.blendMode = 'screen'; s.anchor.set(0.5, 0.5); s.alpha = 0.75;
+        var s = new PIXI.Sprite(tex); s.anchor.set(0.5, 0.5); s.alpha = 0.9;
         var sc = (h * 0.10) / CREATURES[name].h; s.scale.set(sc); s._bsc = sc;
         s.x = (idx / pickedMed.length) * w + Math.random() * 160;
         s.y = h * 0.3 + Math.random() * h * 0.4;
         s.vx = (0.4 + Math.random() * 0.35) * (Math.random() < 0.5 ? 1 : -1);
         s.swimType = 'med'; s.bob = Math.random() * Math.PI * 2;
-        if (s.vx > 0) s.scale.x = -sc;
+        if (s.vx < 0) s.scale.x = -sc;
         creatureLayer.addChild(s); creatureList.push(s);
       });
 
       pickedSmall.forEach(function (name, idx) {
         var tex2 = cropDeepseaTexture(PIXI, sheetImg, name); if (!tex2) return;
-        var sf = new PIXI.Sprite(tex2); sf.blendMode = 'screen'; sf.anchor.set(0.5, 0.5); sf.alpha = 0.85;
+        var sf = new PIXI.Sprite(tex2); sf.anchor.set(0.5, 0.5); sf.alpha = 0.95;
         var sc2 = (h * 0.055) / CREATURES[name].h; sf.scale.set(sc2); sf._bsc = sc2;
         sf.x = (idx / pickedSmall.length) * w + Math.random() * 120;
         sf.y = h * 0.2 + Math.random() * h * 0.35;
         sf.vx = (0.6 + Math.random() * 0.5) * (Math.random() < 0.5 ? 1 : -1);
         sf.swimType = 'small'; sf.bob = Math.random() * Math.PI * 2;
-        if (sf.vx > 0) sf.scale.x = -sc2;
+        if (sf.vx < 0) sf.scale.x = -sc2;
         sf.eventMode = 'static'; sf.cursor = 'pointer';
         sf.hitArea = new PIXI.Rectangle(-sc2 * 60, -sc2 * 50, sc2 * 120, sc2 * 100);
         (function (s) {
@@ -1057,7 +1127,7 @@
 
       pickedJelly.forEach(function (name, idx) {
         var tex3 = cropDeepseaTexture(PIXI, sheetImg, name); if (!tex3) return;
-        var jf = new PIXI.Sprite(tex3); jf.blendMode = 'screen'; jf.anchor.set(0.5, 0.5); jf.alpha = 0.65;
+        var jf = new PIXI.Sprite(tex3); jf.anchor.set(0.5, 0.5); jf.alpha = 0.85;
         var sc3 = (h * 0.14) / CREATURES[name].h; jf.scale.set(sc3); jf._bsc = sc3;
         jf.x = (idx / pickedJelly.length) * w + Math.random() * (w / pickedJelly.length);
         jf.y = h * 0.4 + Math.random() * h * 0.5;
@@ -1088,17 +1158,17 @@
       creatureList.forEach(function (s) {
         if (s.swimType === 'large') {
           s.bob += 0.008; s.x += s.vx; s.y += Math.sin(s.bob) * 0.15; s.vx *= 0.9995;
-          if (s._bsc) { s.scale.x = s.vx < 0 ? s._bsc : -s._bsc; }
+          if (s._bsc) { s.scale.x = s.vx < 0 ? -s._bsc : s._bsc; }
           if (s.vx > 0 && s.x > w + 300) { s.x = -300; s.y = h * 0.6 + Math.random() * h * 0.2; }
           if (s.vx < 0 && s.x < -300)    { s.x = w + 300; s.y = h * 0.6 + Math.random() * h * 0.2; }
         } else if (s.swimType === 'med') {
           s.bob += 0.015; s.x += s.vx; s.y += Math.sin(s.bob) * 0.25; s.vx *= 0.9998;
-          if (s._bsc) { s.scale.x = s.vx < 0 ? s._bsc : -s._bsc; }
+          if (s._bsc) { s.scale.x = s.vx < 0 ? -s._bsc : s._bsc; }
           if (s.vx > 0 && s.x > w + 200) { s.x = -200; s.y = h * 0.3 + Math.random() * h * 0.4; }
           if (s.vx < 0 && s.x < -200)    { s.x = w + 200; s.y = h * 0.3 + Math.random() * h * 0.4; }
         } else if (s.swimType === 'small') {
           s.bob += 0.025; s.x += s.vx; s.y += Math.sin(s.bob) * 0.3; s.vx *= 0.9997;
-          if (s._bsc) { s.scale.x = s.vx < 0 ? s._bsc : -s._bsc; }
+          if (s._bsc) { s.scale.x = s.vx < 0 ? -s._bsc : s._bsc; }
           if (s.vx > 0 && s.x > w + 100) { s.x = -100; s.y = h * 0.2 + Math.random() * h * 0.35; }
           if (s.vx < 0 && s.x < -100)    { s.x = w + 100; s.y = h * 0.2 + Math.random() * h * 0.35; }
         } else if (s.swimType === 'jelly') {
